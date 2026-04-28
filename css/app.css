@@ -269,7 +269,6 @@ textarea {
 #features-container {
     min-width: 350px;
 }
-
 #attacks-spells table#attacks {
     width: 100%;
     max-width: 100%;
@@ -413,6 +412,39 @@ td {
     font-size: 1.2em;
 }
 
+/* Spell Table Styles */
+.spell-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    table-layout: fixed;
+}
+
+.spell-table th {
+    background-color: #607d8b;
+    color: white;
+    padding: 8px;
+    text-align: left;
+    font-weight: bold;
+}
+
+.spell-table td {
+    padding: 4px;
+    border-bottom: 1px solid #ddd;
+    overflow: hidden;
+}
+
+.spell-table input[type="text"] {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 2px 4px;
+    border-bottom: 1px solid black;
+}
+
+.spell-table input[type="checkbox"] {
+    margin: 0 auto;
+    display: block;
+}
 
 /* Page 4 */
 
@@ -439,6 +471,16 @@ td {
     background-position: center center;
 }
 
+#slots {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+#slots input[type="checkbox"] {
+    margin: 2px;
+}
 
 /* w3 custom css */
 

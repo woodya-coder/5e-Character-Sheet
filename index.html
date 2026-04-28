@@ -35,8 +35,9 @@
         <a href="#" class="w3-bar-item w3-button w3-hover-blue-gray" onclick="openPage('page-1'); w3_close()">Attributes</a>
         <a href="#" class="w3-bar-item w3-button w3-hover-blue-gray" onclick="openPage('page-4'); w3_close()">Backstory</a>
         <a href="#" class="w3-bar-item w3-button w3-hover-blue-gray" onclick="openPage('page-2'); w3_close()">Inv. & NPCs</a>
-        <a href="#" class="w3-bar-item w3-button w3-hover-blue-gray" onclick="openPage('page-3'); w3_close()">Spell Sheet</a>
+        <a href="#" class="w3-bar-item w3-button w3-hover-blue-gray" onclick="openPage('page-3'); w3_close()">Spells & Feats1</a>
         <a href="#" class="w3-bar-item w3-button w3-hover-blue-gray" onclick="openPage('page-5'); w3_close()">Notes</a>
+
         <div class="w3-dropdown-hover">
             <button class="w3-button w3-hover-blue-gray">Options <i class="fa fa-caret-down"></i></button>
             <div id="menu-options" class="w3-dropdown-content w3-bar-block w3-animate-right">
@@ -891,7 +892,7 @@
                     </div>
                     <div id="att" class="w3-col w3-padding m3 l3">
                         <div class="input-frame">
-                            <input class="auto-filled-border" type="text" name="att" maxlength="3" size="3" />
+                            <input class="auto-filled-border" type="text" name="att" maxlength="5" size="3" />
                         </div>
                         <div class="label-frame">
                             <span class="label">Spell Casting Attribute</span>
@@ -915,611 +916,288 @@
                     </div>
                 </div>
             </div>
+
             <!-- Spells -->
             <div class="w3-col w3-margin-bottom w3-card w3-round">
                 <button class="expando w3-button w3-bar-block w3-left-align w3-blue-gray">Spells</button>
                 <div id="spells" class="w3-padding w3-animate-opacity">
-                    <div id="cantrips" class="w3-col w3-padding w3-border-bottom">
-                        <div class="w3-col">
-                            <div>
-                                <span class="level">Cantrips</span>
-                            </div>
-                        </div>
-                        <div class="spells w3-col w3-margin-bottom">
-                            <div class="spell w3-col m6 l3">
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="text" name="spell-name" />
-                            </div>
-                        </div>
-                    </div>
-                    <div id="level-1" class="w3-col w3-padding w3-border-bottom">
-                        <div class="w3-col">
-                            <div>
-                                <span class="level">1<sup>st</sup> Level</span>
-                            </div>
-                            <div id="total-slots" class="w3-col">
-                                <input type="text" name="total-1" maxlength="2" size="2" />
-                                <span class="sub-label">Slots Total</span>
-                            </div>
-                            <div>
-                                <div class="sub-label">Slots Remaining</div>
-                                <div id="slots" class="w3-col">
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <span class="sub-label">Prepared</span>
-                        </div>
-                        <div class="spells w3-col">
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                        </div>
-                    </div>
-                    <div id="level-2" class="w3-col w3-padding w3-border-bottom">
-                        <div class="title box">
-                            <div>
-                                <span class="level">2<sup>nd</sup> Level</span>
-                            </div>
-                            <div id="total-slots">
-                                <input type="text" name="total-2" maxlength="2" size="2" />
-                                <span class="sub-label">Slots Total</span>
-                            </div>
-                            <div>
-                                <span class="sub-label">Slots Remaining</span>
-                                <div id="slots">
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <span class="sub-label">Prepared</span>
-                        </div>
-                        <div class="spells box">
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                        </div>
-                    </div>
-                    <div id="level-3" class="w3-col w3-padding w3-border-bottom">
-                        <div class="title box">
-                            <div>
-                                <span class="level">3<sup>rd</sup> Level</span>
-                            </div>
-                            <div id="total-slots">
-                                <input type="text" name="total-3" maxlength="2" size="2" />
-                                <span class="sub-label">Slots Total</span>
-                            </div>
-                            <div>
-                                <span class="sub-label">Slots Remaining</span>
-                                <div id="slots">
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <span class="sub-label">Prepared</span>
-                        </div>
-                        <div class="spells box">
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                        </div>
-                    </div>
-                    <div id="level-4" class="w3-col w3-padding w3-border-bottom">
-                        <div class="title box">
-                            <div>
-                                <span class="level">4<sup>th</sup> Level</span>
-                            </div>
-                            <div id="total-slots">
-                                <input type="text" name="total-4" maxlength="2" size="2" />
-                                <span class="sub-label">Slots Total</span>
-                            </div>
-                            <div>
-                                <span class="sub-label">Slots Remaining</span>
-                                <div id="slots">
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <span class="sub-label">Prepared</span>
-                        </div>
-                        <div class="spells box">
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                        </div>
-                    </div>
-                    <div id="level-5" class="w3-col w3-padding w3-border-bottom">
-                        <div class="title box">
-                            <div>
-                                <span class="level">5<sup>th</sup> Level</span>
-                            </div>
-                            <div id="total-slots">
-                                <input type="text" name="total-5" maxlength="2" size="2" />
-                                <span class="sub-label">Slots Total</span>
-                            </div>
-                            <div>
-                                <span class="sub-label">Slots Remaining</span>
-                                <div id="slots">
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <span class="sub-label">Prepared</span>
-                        </div>
-                        <div class="spells box">
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                        </div>
-                    </div>
-                    <div id="level-6" class="w3-col w3-padding w3-border-bottom">
-                        <div class="title box">
-                            <div>
-                                <span class="level">6<sup>th</sup> Level</span>
-                            </div>
-                            <div id="total-slots">
-                                <input type="text" name="total-6" maxlength="2" size="2" />
-                                <span class="sub-label">Slots Total</span>
-                            </div>
-                            <div>
-                                <span class="sub-label">Slots Remaining</span>
-                                <div id="slots">
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <span class="sub-label">Prepared</span>
-                        </div>
-                        <div class="spells box">
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                        </div>
-                    </div>
-                    <div id="level-7" class="w3-col w3-padding w3-border-bottom">
-                        <div class="title box">
-                            <div>
-                                <span class="level">7<sup>th</sup> Level</span>
-                            </div>
-                            <div id="total-slots">
-                                <input type="text" name="total-7" maxlength="2" size="2" />
-                                <span class="sub-label">Slots Total</span>
-                            </div>
-                            <div>
-                                <span class="sub-label">Slots Remaining</span>
-                                <div id="slots">
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <span class="sub-label">Prepared</span>
-                        </div>
-                        <div class="spells box">
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                        </div>
-                    </div>
-                    <div id="level-8" class="w3-col w3-padding w3-border-bottom">
-                        <div class="title box">
-                            <div>
-                                <span class="level">8<sup>th</sup> Level</span>
-                            </div>
-                            <div id="total-slots">
-                                <input type="text" name="total-8" maxlength="2" size="2" />
-                                <span class="sub-label">Slots Total</span>
-                            </div>
-                            <div>
-                                <span class="sub-label">Slots Remaining</span>
-                                <div id="slots">
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <span class="sub-label">Prepared</span>
-                        </div>
-                        <div class="spells box">
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                        </div>
-                    </div>
-                    <div id="level-9" class="w3-col w3-padding w3-border-bottom">
-                        <div class="title box">
-                            <div>
-                                <span class="level">9<sup>th</sup> Level</span>
-                            </div>
-                            <div id="total-slots">
-                                <input type="text" name="total-9" maxlength="2" size="2" />
-                                <span class="sub-label">Slots Total</span>
-                            </div>
-                            <div>
-                                <span class="sub-label">Slots Remaining</span>
-                                <div id="slots">
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <span class="sub-label">Prepared</span>
-                        </div>
-                        <div class="spells box">
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                            <div class="spell w3-col m6 l3">
-                                <input type="checkbox" name="preped" />
-                                <input type="text" name="spell-name" />
-                            </div>
-                        </div>
+                    
+                    <table class="spell-table">
+                        <tr>
+                            <th style="width: 20%">1st Level</th>
+                            <th style="width: 20%">2nd Level</th>
+                            <th style="width: 20%">3rd Level</th>
+                            <th style="width: 20%">4th Level</th>
+                            <th style="width: 20%">5th Level</th>
+                        </tr>                        
+                        <tr>
+                            <td>
+                                <div class="w3-col w3-padding">
+                                    <div class="title box">
+                                        <div id="total-slots">
+                                            <input type="text" name="total-1" maxlength="2" size="2" />
+                                            <span class="sub-label">Slots Total</span>
+                                        </div>
+                                        <div>
+                                            <span class="sub-label">Slots Remaining</span>
+                                            <div id="slots">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                
+                            </td>
+                            <td>
+                                <div class="w3-col w3-padding">
+                                    <div class="title box">
+                                        <div id="total-slots">
+                                            <input type="text" name="total-2" maxlength="2" size="2" />
+                                            <span class="sub-label">Slots Total</span>
+                                        </div>
+                                        <div>
+                                            <span class="sub-label">Slots Remaining</span>
+                                            <div id="slots">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                
+                            </td>                            
+                            <td>
+                                <div class="w3-col w3-padding">
+                                    <div class="title box">
+                                        <div id="total-slots">
+                                            <input type="text" name="total-3" maxlength="2" size="2" />
+                                            <span class="sub-label">Slots Total</span>
+                                        </div>
+                                        <div>
+                                            <span class="sub-label">Slots Remaining</span>
+                                            <div id="slots">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                
+                            </td>   
+                            <td>
+                                <div class="w3-col w3-padding">
+                                    <div class="title box">
+                                        <div id="total-slots">
+                                            <input type="text" name="total-4" maxlength="2" size="2" />
+                                            <span class="sub-label">Slots Total</span>
+                                        </div>
+                                        <div>
+                                            <span class="sub-label">Slots Remaining</span>
+                                            <div id="slots">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                
+                            </td>
+                            <td>
+                                <div class="w3-col w3-padding">
+                                    <div class="title box">
+                                        <div id="total-slots">
+                                            <input type="text" name="total-5" maxlength="2" size="2" />
+                                            <span class="sub-label">Slots Total</span>
+                                        </div>
+                                        <div>
+                                            <span class="sub-label">Slots Remaining</span>
+                                            <div id="slots">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                
+                            </td>                                                           
+                        </tr>
+                    </table>
+            
+                        <table class="spell-table">
+                            <tr>
+                                <th style="width: 4%">Type</th>
+                                <th style="width: 15%">Spell Name</th>
+                                <th style="width: 5%">Cast Time</th>
+                                <th style="width: 5%">Range</th>
+                                <th style="width: 8%">Duration</th>
+                                <th style="width: 63%">Description</th>
+                            </tr>
+                            <tr>
+                                <td><input type="text" name="spell-type" /></td>
+                                <td><input type="text" name="spell-name" /></td>
+                                <td><input type="text" name="cast-time" /></td>
+                                <td><input type="text" name="range" /></td>
+                                <td><input type="text" name="duration" /></td>
+                                <td><input type="text" name="description" /></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" name="spell-type" /></td>
+                                <td><input type="text" name="spell-name" /></td>
+                                <td><input type="text" name="cast-time" /></td>
+                                <td><input type="text" name="range" /></td>
+                                <td><input type="text" name="duration" /></td>
+                                <td><input type="text" name="description" /></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" name="spell-type" /></td>
+                                <td><input type="text" name="spell-name" /></td>
+                                <td><input type="text" name="cast-time" /></td>
+                                <td><input type="text" name="range" /></td>
+                                <td><input type="text" name="duration" /></td>
+                                <td><input type="text" name="description" /></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" name="spell-type" /></td>
+                                <td><input type="text" name="spell-name" /></td>
+                                <td><input type="text" name="cast-time" /></td>
+                                <td><input type="text" name="range" /></td>
+                                <td><input type="text" name="duration" /></td>
+                                <td><input type="text" name="description" /></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" name="spell-type" /></td>
+                                <td><input type="text" name="spell-name" /></td>
+                                <td><input type="text" name="cast-time" /></td>
+                                <td><input type="text" name="range" /></td>
+                                <td><input type="text" name="duration" /></td>
+                                <td><input type="text" name="description" /></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" name="spell-type" /></td>
+                                <td><input type="text" name="spell-name" /></td>
+                                <td><input type="text" name="cast-time" /></td>
+                                <td><input type="text" name="range" /></td>
+                                <td><input type="text" name="duration" /></td>
+                                <td><input type="text" name="description" /></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" name="spell-type" /></td>
+                                <td><input type="text" name="spell-name" /></td>
+                                <td><input type="text" name="cast-time" /></td>
+                                <td><input type="text" name="range" /></td>
+                                <td><input type="text" name="duration" /></td>
+                                <td><input type="text" name="description" /></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" name="spell-type" /></td>
+                                <td><input type="text" name="spell-name" /></td>
+                                <td><input type="text" name="cast-time" /></td>
+                                <td><input type="text" name="range" /></td>
+                                <td><input type="text" name="duration" /></td>
+                                <td><input type="text" name="description" /></td>
+                            </tr>                                
+                            <tr>
+                                <td><input type="text" name="spell-type" /></td>
+                                <td><input type="text" name="spell-name" /></td>
+                                <td><input type="text" name="cast-time" /></td>
+                                <td><input type="text" name="range" /></td>
+                                <td><input type="text" name="duration" /></td>
+                                <td><input type="text" name="description" /></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" name="spell-type" /></td>
+                                <td><input type="text" name="spell-name" /></td>
+                                <td><input type="text" name="cast-time" /></td>
+                                <td><input type="text" name="range" /></td>
+                                <td><input type="text" name="duration" /></td>
+                                <td><input type="text" name="description" /></td>
+                                </tr>
+                                
+                                <tr>
+                                <td><input type="text" name="spell-type" /></td>
+                                <td><input type="text" name="spell-name" /></td>
+                                <td><input type="text" name="cast-time" /></td>
+                                <td><input type="text" name="range" /></td>
+                                <td><input type="text" name="duration" /></td>
+                                <td><input type="text" name="description" /></td>
+                                </tr>
+                                
+                                <tr>
+                                <td><input type="text" name="spell-type" /></td>
+                                <td><input type="text" name="spell-name" /></td>
+                                <td><input type="text" name="cast-time" /></td>
+                                <td><input type="text" name="range" /></td>
+                                <td><input type="text" name="duration" /></td>
+                                <td><input type="text" name="description" /></td>
+                                </tr>
+                                
+                                <tr>
+                                <td><input type="text" name="spell-type" /></td>
+                                <td><input type="text" name="spell-name" /></td>
+                                <td><input type="text" name="cast-time" /></td>
+                                <td><input type="text" name="range" /></td>
+                                <td><input type="text" name="duration" /></td>
+                                <td><input type="text" name="description" /></td>
+                                </tr>
+                                
+                                <tr>
+                                <td><input type="text" name="spell-type" /></td>
+                                <td><input type="text" name="spell-name" /></td>
+                                <td><input type="text" name="cast-time" /></td>
+                                <td><input type="text" name="range" /></td>
+                                <td><input type="text" name="duration" /></td>
+                                <td><input type="text" name="description" /></td>
+                                </tr>
+                                
+                                <tr>
+                                <td><input type="text" name="spell-type" /></td>
+                                <td><input type="text" name="spell-name" /></td>
+                                <td><input type="text" name="cast-time" /></td>
+                                <td><input type="text" name="range" /></td>
+                                <td><input type="text" name="duration" /></td>
+                                <td><input type="text" name="description" /></td>
+                                </tr>
+                                
+                                <tr>
+                                <td><input type="text" name="spell-type" /></td>
+                                <td><input type="text" name="spell-name" /></td>
+                                <td><input type="text" name="cast-time" /></td>
+                                <td><input type="text" name="range" /></td>
+                                <td><input type="text" name="duration" /></td>
+                                <td><input type="text" name="description" /></td>
+                                </tr>
+                                
+                                <tr>
+                                <td><input type="text" name="spell-type" /></td>
+                                <td><input type="text" name="spell-name" /></td>
+                                <td><input type="text" name="cast-time" /></td>
+                                <td><input type="text" name="range" /></td>
+                                <td><input type="text" name="duration" /></td>
+                                <td><input type="text" name="description" /></td>
+                                </tr>
+                                
+                                <tr>
+                                <td><input type="text" name="spell-type" /></td>
+                                <td><input type="text" name="spell-name" /></td>
+                                <td><input type="text" name="cast-time" /></td>
+                                <td><input type="text" name="range" /></td>
+                                <td><input type="text" name="duration" /></td>
+                                <td><input type="text" name="description" /></td>
+                                </tr>
+                                
+                                <tr>
+                                <td><input type="text" name="spell-type" /></td>
+                                <td><input type="text" name="spell-name" /></td>
+                                <td><input type="text" name="cast-time" /></td>
+                                <td><input type="text" name="range" /></td>
+                                <td><input type="text" name="duration" /></td>
+                                <td><input type="text" name="description" /></td>
+                                </tr>
+                                
+                                <tr>
+                                <td><input type="text" name="spell-type" /></td>
+                                <td><input type="text" name="spell-name" /></td>
+                                <td><input type="text" name="cast-time" /></td>
+                                <td><input type="text" name="range" /></td>
+                                <td><input type="text" name="duration" /></td>
+                                <td><input type="text" name="description" /></td>
+                                </tr>
+
+                                <tr>
+                                <td><input type="text" name="spell-type" /></td>
+                                <td><input type="text" name="spell-name" /></td>
+                                <td><input type="text" name="cast-time" /></td>
+                                <td><input type="text" name="range" /></td>
+                                <td><input type="text" name="duration" /></td>
+                                <td><input type="text" name="description" /></td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -1596,6 +1274,8 @@
                 </div>
             </div>
         </div>
+
+        
         <!-- Footer -->
         <!-- Footer -->
         <!-- Footer -->

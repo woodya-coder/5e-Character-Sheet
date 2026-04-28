@@ -53,15 +53,22 @@ function getEquipment(argument) {
 
 function getSpells(spellLevel) {
     var spells = [];
-    $('#page-3 #spells #' + spellLevel + ' .spells .spell').each(function(argument) {
-        var temp = {};
-        if (spellLevel != 'cantrips')
-            temp.preped = $(this).find('input[name="preped"]').prop('checked');
-        temp.spell_name = $(this).find('input[name="spell-name"]').val();
-        spells.push(temp);
+    // Since you now have one big table for all spells, we'll get all rows
+    $('#page-3 #spells table.spell-table tr').each(function(argument) {
+        // Skip the header row
+        if ($(this).find('th').length == 0) {
+            var temp = {};
+            temp.spell_type = $(this).find('input[name="spell-type"]').val();
+            temp.spell_name = $(this).find('input[name="spell-name"]').val();
+            temp.cast_time = $(this).find('input[name="cast-time"]').val();
+            temp.range = $(this).find('input[name="range"]').val();
+            temp.duration = $(this).find('input[name="duration"]').val();
+            temp.description = $(this).find('input[name="description"]').val();
+            spells.push(temp);
+        }
     });
 
-    return spells
+    return spells;
 }
 
 function saveSheet(argument) {
@@ -334,54 +341,21 @@ function saveSheet(argument) {
                 flaws: $('#personality #flaws textarea[name="flaws"]').val()
             },
         },
-        page3: {
+page3: {
             spell_info: {
                 class: $('#page-3 #spell-info input[name="class"]').val(),
                 att: $('#page-3 #spell-info input[name="att"]').val(),
                 dc: $('#page-3 #spell-info input[name="dc"]').val(),
                 bonus: $('#page-3 #spell-info input[name="bonus"]').val()
             },
-            spells: {
-                cantrips: {
-                    spells: getSpells('cantrips')
-                },
-                level_1: {
-                    total: $('#page-3 #spells input[name="total-1"]').val(),
-                    spells: getSpells('level-1')
-                },
-                level_2: {
-                    total: $('#page-3 #spells input[name="total-2"]').val(),
-                    spells: getSpells('level-2')
-                },
-                level_3: {
-                    total: $('#page-3 #spells input[name="total-3"]').val(),
-                    spells: getSpells('level-3')
-                },
-                level_4: {
-                    total: $('#page-3 #spells input[name="total-4"]').val(),
-                    spells: getSpells('level-4')
-                },
-                level_5: {
-                    total: $('#page-3 #spells input[name="total-5"]').val(),
-                    spells: getSpells('level-5')
-                },
-                level_6: {
-                    total: $('#page-3 #spells input[name="total-6"]').val(),
-                    spells: getSpells('level-6')
-                },
-                level_7: {
-                    total: $('#page-3 #spells input[name="total-7"]').val(),
-                    spells: getSpells('level-7')
-                },
-                level_8: {
-                    total: $('#page-3 #spells input[name="total-8"]').val(),
-                    spells: getSpells('level-8')
-                },
-                level_9: {
-                    total: $('#page-3 #spells input[name="total-9"]').val(),
-                    spells: getSpells('level-9')
-                }
-            }
+            spell_slots: {
+                total_1: $('#page-3 #spells input[name="total-1"]').val(),
+                total_2: $('#page-3 #spells input[name="total-2"]').val(),
+                total_3: $('#page-3 #spells input[name="total-3"]').val(),
+                total_4: $('#page-3 #spells input[name="total-4"]').val(),
+                total_5: $('#page-3 #spells input[name="total-5"]').val()
+            },
+            spells: getSpells()
         },
         page5: {
             notes_1: $('#page-5 #notes-1 textarea[name="notes-1"]').val(),

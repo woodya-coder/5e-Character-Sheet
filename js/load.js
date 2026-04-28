@@ -257,17 +257,40 @@ $(document).ready(function(argument) {
     $('#page-5 #notes-1 textarea[name="notes-1"]').val(loadJson.page5.notes_1);
     $('#page-5 #notes-2 textarea[name="notes-2"]').val(loadJson.page5.notes_2);
 
-    //Load Spell Info
+//Load Spell Info
     $('#page-3 #spell-info input[name="class"]').val(loadJson.page3.spell_info.class);
     $('#page-3 #spell-info input[name="att"]').val(loadJson.page3.spell_info.att);
     $('#page-3 #spell-info input[name="dc"]').val(loadJson.page3.spell_info.dc);
     $('#page-3 #spell-info input[name="bonus"]').val(loadJson.page3.spell_info.bonus);
 
+    //Load Spell Slots
+    if (loadJson.page3.spell_slots) {
+        $('#page-3 #spells input[name="total-1"]').val(loadJson.page3.spell_slots.total_1);
+        $('#page-3 #spells input[name="total-2"]').val(loadJson.page3.spell_slots.total_2);
+        $('#page-3 #spells input[name="total-3"]').val(loadJson.page3.spell_slots.total_3);
+        $('#page-3 #spells input[name="total-4"]').val(loadJson.page3.spell_slots.total_4);
+        $('#page-3 #spells input[name="total-5"]').val(loadJson.page3.spell_slots.total_5);
+        
+        // Trigger the slot checkbox generation
+        updateSpellSlots($('#page-3 #spells input[name="total-1"]'));
+        updateSpellSlots($('#page-3 #spells input[name="total-2"]'));
+        updateSpellSlots($('#page-3 #spells input[name="total-3"]'));
+        updateSpellSlots($('#page-3 #spells input[name="total-4"]'));
+        updateSpellSlots($('#page-3 #spells input[name="total-5"]'));
+    }
+
     //Load Spells
-    $.each(loadJson.page3.spells.cantrips.spells, function(index, value) {
-        var child = index + 1;
-        $('#page-3 #spells #cantrips .spells .spell:nth-child(' + child + ') input[name="spell-name"]').val(value.spell_name);
-    });
+    if (loadJson.page3.spells) {
+        $.each(loadJson.page3.spells, function(index, value) {
+            var child = index + 2; // +2 because of header row
+            $('#page-3 #spells table.spell-table tr:nth-child(' + child + ') input[name="spell-type"]').val(value.spell_type);
+            $('#page-3 #spells table.spell-table tr:nth-child(' + child + ') input[name="spell-name"]').val(value.spell_name);
+            $('#page-3 #spells table.spell-table tr:nth-child(' + child + ') input[name="cast-time"]').val(value.cast_time);
+            $('#page-3 #spells table.spell-table tr:nth-child(' + child + ') input[name="range"]').val(value.range);
+            $('#page-3 #spells table.spell-table tr:nth-child(' + child + ') input[name="duration"]').val(value.duration);
+            $('#page-3 #spells table.spell-table tr:nth-child(' + child + ') input[name="description"]').val(value.description);
+        });
+    }
 
     $('#page-3 #spells #level-1 input[name="total-1"]').val(loadJson.page3.spells.level_1.total);
     //In changes.js
