@@ -51,27 +51,27 @@ function getEquipment(argument) {
     return equ;
 }
 
-function getSpells(spellLevel) {
+
+function getSpells() {
     var spells = [];
-    // Since you now have one big table for all spells, we'll get all rows
-    $('#page-3 #spells table.spell-table tr').each(function(argument) {
-        // Skip the header row
+    $('#spell-list tr').each(function() {
         if ($(this).find('th').length == 0) {
-            var temp = {};
-            temp.spell_type = $(this).find('input[name="spell-type"]').val();
-            temp.spell_name = $(this).find('input[name="spell-name"]').val();
-            temp.cast_time = $(this).find('input[name="cast-time"]').val();
-            temp.range = $(this).find('input[name="range"]').val();
-            temp.duration = $(this).find('input[name="duration"]').val();
-            temp.description = $(this).find('input[name="description"]').val();
+            var temp = {
+                spell_type: $(this).find('input[name="spell-type"]').val(),
+                spell_name: $(this).find('input[name="spell-name"]').val(),
+                cast_time: $(this).find('input[name="cast-time"]').val(),
+                range: $(this).find('input[name="range"]').val(),
+                duration: $(this).find('input[name="duration"]').val(),
+                description: $(this).find('input[name="description"]').val()
+            };
             spells.push(temp);
         }
     });
-
     return spells;
 }
 
-function saveSheet(argument) {
+
+async function saveSheet(argument) {
 
     var sheet = {
         page1: {
@@ -363,18 +363,24 @@ page3: {
         }
     }
 
-    var saveString = "var loadJson = ";
-    var saveString = saveString + JSON.stringify(sheet);
+    // Convert to the same format your loader expects
+    const saveString = "var loadJson = " + JSON.stringify(sheet);
 
-    var file = new Blob([saveString], { type: 'application/json' });
-    var a = document.createElement("a"),
-        url = URL.createObjectURL(file);
-    a.href = url;
-    a.download = 'savedSheet';
-    document.body.appendChild(a);
-    a.click();
-    setTimeout(function() {
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(url);
-    }, 0);
+    // Suggested filename based on character name
+    const charName = sheet.page1.basic_info.char_name || "character";
+    const suggested = `${charName.replace(/\s+/g, "_")}.json`;
+
+    // Open a real Save dialog
+    const handle = await window.showSaveFilePicker({
+        suggestedName: suggested,
+        types: [{
+            description: "Character Sheet",
+            accept: { "application/json": [".json"] }
+        }]
+    });
+
+    // Write the file
+    const writable = await handle.createWritable();
+    await writable.write(saveString);
+    await writable.close();
 }

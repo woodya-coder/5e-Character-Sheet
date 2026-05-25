@@ -607,16 +607,25 @@ function cacluateCurrencyMod(coin, base) {
     }
 }
 
-function updateSpellSlots(total) {
-    var totalSlots = parseInt(total.val()) || 0;
-    var number = total.attr('name').substring(-1);
-    var slots = total.parent().parent().find('div#slots');
-    slots.empty();
 
-    for (var i = totalSlots - 1; i >= 0; i--) {
-        slots.append('<input type="checkbox" name="slot-' + number + '">')
+
+function updateSpellSlots(input) {
+    // input = the "total-X" textbox that triggered the update
+    var total = parseInt(input.val()) || 0;
+
+    // Find the correct slots container for THIS spell level
+    var container = input.closest('td').find('.slots');
+
+    // Clear old checkboxes
+    container.empty();
+
+    // Add new checkboxes
+    for (var i = 0; i < total; i++) {
+        var checkbox = $('<input type="checkbox" class="slot-box" />');
+        container.append(checkbox);
     }
 }
+
 
 $('document').ready(function(argument) {
     //Run when strength changes

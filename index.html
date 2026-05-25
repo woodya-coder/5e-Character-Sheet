@@ -15,7 +15,7 @@
     <script type="text/javascript" src="js/changes.js"></script>
     <script type="text/javascript" src="js/add-attack.js"></script>
     <script type="text/javascript" src="js/save.js"></script>
-    <script type="text/javascript" src="js/load.js"></script>
+
     <script type="text/javascript" src="js/app.js"></script>
 </head>
 
@@ -37,16 +37,9 @@
         <a href="#" class="w3-bar-item w3-button w3-hover-blue-gray" onclick="openPage('page-2'); w3_close()">Inv. & NPCs</a>
         <a href="#" class="w3-bar-item w3-button w3-hover-blue-gray" onclick="openPage('page-3'); w3_close()">Spells & Feats1</a>
         <a href="#" class="w3-bar-item w3-button w3-hover-blue-gray" onclick="openPage('page-5'); w3_close()">Notes</a>
-
-        <div class="w3-dropdown-hover">
-            <button class="w3-button w3-hover-blue-gray">Options <i class="fa fa-caret-down"></i></button>
-            <div id="menu-options" class="w3-dropdown-content w3-bar-block w3-animate-right">
-                <a href="#" class="w3-bar-item w3-button w3-hover-blue-gray" onclick="loadNewSheet(); w3_close()">Load Save</a>
-                <a href="#" class="w3-bar-item w3-button w3-hover-blue-gray" onclick="saveSheet(); w3_close()">Save Sheet</a>
-                <a href="#" class="w3-bar-item w3-button w3-hover-blue-gray" onclick="lock()">Lock/Unlock Sheet</a>
-                <div id="lock" class="unlocked w3-padding">Unlocked</div>
-            </div>
-        </div>
+        <a href="#" class="w3-bar-item w3-button w3-hover-blue-gray" onclick="document.getElementById('loadFile').click(); w3_close()">Load Sheet</a>
+        <a href="#" class="w3-bar-item w3-button w3-hover-blue-gray" onclick="saveSheet(); w3_close()">Save Sheet</a>
+        <a href="#" class="w3-bar-item w3-button w3-hover-blue-gray" onclick="lock()">Lock/Unlock Sheet</a>
         <div class="info w3-margin-top w3-border-top">
             <div class="label">Info & Help</div>
             <div class="w3-margin-top"><span class="auto-filled-border w3-round">Alt Color</span> = Auto-Filled</div>
@@ -940,7 +933,7 @@
                                         </div>
                                         <div>
                                             <span class="sub-label">Slots Remaining</span>
-                                            <div id="slots">
+                                            <div class="slots">
                                             </div>
                                         </div>
                                     </div>
@@ -955,7 +948,7 @@
                                         </div>
                                         <div>
                                             <span class="sub-label">Slots Remaining</span>
-                                            <div id="slots">
+                                            <div class="slots">
                                             </div>
                                         </div>
                                     </div>
@@ -970,7 +963,7 @@
                                         </div>
                                         <div>
                                             <span class="sub-label">Slots Remaining</span>
-                                            <div id="slots">
+                                            <div class="slots">
                                             </div>
                                         </div>
                                     </div>
@@ -985,7 +978,7 @@
                                         </div>
                                         <div>
                                             <span class="sub-label">Slots Remaining</span>
-                                            <div id="slots">
+                                            <div class="slots">
                                             </div>
                                         </div>
                                     </div>
@@ -1000,7 +993,7 @@
                                         </div>
                                         <div>
                                             <span class="sub-label">Slots Remaining</span>
-                                            <div id="slots">
+                                            <div class="slots">
                                             </div>
                                         </div>
                                     </div>
@@ -1009,7 +1002,7 @@
                         </tr>
                     </table>
             
-                        <table class="spell-table">
+                        <table id="spell-list" class="spell-table">
                             <tr>
                                 <th style="width: 4%">Type</th>
                                 <th style="width: 15%">Spell Name</th>
@@ -1097,99 +1090,18 @@
                                 <td><input type="text" name="range" /></td>
                                 <td><input type="text" name="duration" /></td>
                                 <td><input type="text" name="description" /></td>
-                                </tr>
+                            </tr>
                                 
-                                <tr>
+                            <tr>
                                 <td><input type="text" name="spell-type" /></td>
                                 <td><input type="text" name="spell-name" /></td>
                                 <td><input type="text" name="cast-time" /></td>
                                 <td><input type="text" name="range" /></td>
                                 <td><input type="text" name="duration" /></td>
                                 <td><input type="text" name="description" /></td>
-                                </tr>
+                               </tr>
                                 
-                                <tr>
-                                <td><input type="text" name="spell-type" /></td>
-                                <td><input type="text" name="spell-name" /></td>
-                                <td><input type="text" name="cast-time" /></td>
-                                <td><input type="text" name="range" /></td>
-                                <td><input type="text" name="duration" /></td>
-                                <td><input type="text" name="description" /></td>
-                                </tr>
-                                
-                                <tr>
-                                <td><input type="text" name="spell-type" /></td>
-                                <td><input type="text" name="spell-name" /></td>
-                                <td><input type="text" name="cast-time" /></td>
-                                <td><input type="text" name="range" /></td>
-                                <td><input type="text" name="duration" /></td>
-                                <td><input type="text" name="description" /></td>
-                                </tr>
-                                
-                                <tr>
-                                <td><input type="text" name="spell-type" /></td>
-                                <td><input type="text" name="spell-name" /></td>
-                                <td><input type="text" name="cast-time" /></td>
-                                <td><input type="text" name="range" /></td>
-                                <td><input type="text" name="duration" /></td>
-                                <td><input type="text" name="description" /></td>
-                                </tr>
-                                
-                                <tr>
-                                <td><input type="text" name="spell-type" /></td>
-                                <td><input type="text" name="spell-name" /></td>
-                                <td><input type="text" name="cast-time" /></td>
-                                <td><input type="text" name="range" /></td>
-                                <td><input type="text" name="duration" /></td>
-                                <td><input type="text" name="description" /></td>
-                                </tr>
-                                
-                                <tr>
-                                <td><input type="text" name="spell-type" /></td>
-                                <td><input type="text" name="spell-name" /></td>
-                                <td><input type="text" name="cast-time" /></td>
-                                <td><input type="text" name="range" /></td>
-                                <td><input type="text" name="duration" /></td>
-                                <td><input type="text" name="description" /></td>
-                                </tr>
-                                
-                                <tr>
-                                <td><input type="text" name="spell-type" /></td>
-                                <td><input type="text" name="spell-name" /></td>
-                                <td><input type="text" name="cast-time" /></td>
-                                <td><input type="text" name="range" /></td>
-                                <td><input type="text" name="duration" /></td>
-                                <td><input type="text" name="description" /></td>
-                                </tr>
-                                
-                                <tr>
-                                <td><input type="text" name="spell-type" /></td>
-                                <td><input type="text" name="spell-name" /></td>
-                                <td><input type="text" name="cast-time" /></td>
-                                <td><input type="text" name="range" /></td>
-                                <td><input type="text" name="duration" /></td>
-                                <td><input type="text" name="description" /></td>
-                                </tr>
-                                
-                                <tr>
-                                <td><input type="text" name="spell-type" /></td>
-                                <td><input type="text" name="spell-name" /></td>
-                                <td><input type="text" name="cast-time" /></td>
-                                <td><input type="text" name="range" /></td>
-                                <td><input type="text" name="duration" /></td>
-                                <td><input type="text" name="description" /></td>
-                                </tr>
-                                
-                                <tr>
-                                <td><input type="text" name="spell-type" /></td>
-                                <td><input type="text" name="spell-name" /></td>
-                                <td><input type="text" name="cast-time" /></td>
-                                <td><input type="text" name="range" /></td>
-                                <td><input type="text" name="duration" /></td>
-                                <td><input type="text" name="description" /></td>
-                                </tr>
-
-                                <tr>
+                            <tr>
                                 <td><input type="text" name="spell-type" /></td>
                                 <td><input type="text" name="spell-name" /></td>
                                 <td><input type="text" name="cast-time" /></td>
@@ -1197,6 +1109,226 @@
                                 <td><input type="text" name="duration" /></td>
                                 <td><input type="text" name="description" /></td>
                             </tr>
+                                
+                            <tr>
+                                <td><input type="text" name="spell-type" /></td>
+                                <td><input type="text" name="spell-name" /></td>
+                                <td><input type="text" name="cast-time" /></td>
+                                <td><input type="text" name="range" /></td>
+                                <td><input type="text" name="duration" /></td>
+                                <td><input type="text" name="description" /></td>
+                            </tr>
+                                
+                            <tr>
+                                <td><input type="text" name="spell-type" /></td>
+                                <td><input type="text" name="spell-name" /></td>
+                                <td><input type="text" name="cast-time" /></td>
+                                <td><input type="text" name="range" /></td>
+                                <td><input type="text" name="duration" /></td>
+                                <td><input type="text" name="description" /></td>
+                            </tr>
+                               
+                            <tr>
+                                <td><input type="text" name="spell-type" /></td>
+                                <td><input type="text" name="spell-name" /></td>
+                                <td><input type="text" name="cast-time" /></td>
+                                <td><input type="text" name="range" /></td>
+                                <td><input type="text" name="duration" /></td>
+                                <td><input type="text" name="description" /></td>
+                            </tr>
+                              
+                            <tr>
+                                <td><input type="text" name="spell-type" /></td>
+                                <td><input type="text" name="spell-name" /></td>
+                                <td><input type="text" name="cast-time" /></td>
+                                <td><input type="text" name="range" /></td>
+                                <td><input type="text" name="duration" /></td>
+                                <td><input type="text" name="description" /></td>
+                            </tr>
+                                
+                            <tr>
+                                <td><input type="text" name="spell-type" /></td>
+                                <td><input type="text" name="spell-name" /></td>
+                                <td><input type="text" name="cast-time" /></td>
+                                <td><input type="text" name="range" /></td>
+                                <td><input type="text" name="duration" /></td>
+                                <td><input type="text" name="description" /></td>
+                            </tr>
+                                
+                            <tr>
+                                <td><input type="text" name="spell-type" /></td>
+                                <td><input type="text" name="spell-name" /></td>
+                                <td><input type="text" name="cast-time" /></td>
+                                <td><input type="text" name="range" /></td>
+                                <td><input type="text" name="duration" /></td>
+                                <td><input type="text" name="description" /></td>
+                            </tr>
+                               
+                            <tr>
+                                <td><input type="text" name="spell-type" /></td>
+                                <td><input type="text" name="spell-name" /></td>
+                                <td><input type="text" name="cast-time" /></td>
+                                <td><input type="text" name="range" /></td>
+                                <td><input type="text" name="duration" /></td>
+                                <td><input type="text" name="description" /></td>
+                            </tr>
+                                
+                            <tr>
+                                <td><input type="text" name="spell-type" /></td>
+                                <td><input type="text" name="spell-name" /></td>
+                                <td><input type="text" name="cast-time" /></td>
+                                <td><input type="text" name="range" /></td>
+                                <td><input type="text" name="duration" /></td>
+                                <td><input type="text" name="description" /></td>
+                            </tr>
+
+                            <tr>
+                                <td><input type="text" name="spell-type" /></td>
+                                <td><input type="text" name="spell-name" /></td>
+                                <td><input type="text" name="cast-time" /></td>
+                                <td><input type="text" name="range" /></td>
+                                <td><input type="text" name="duration" /></td>
+                                <td><input type="text" name="description" /></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" name="spell-type" /></td>
+                                <td><input type="text" name="spell-name" /></td>
+                                <td><input type="text" name="cast-time" /></td>
+                                <td><input type="text" name="range" /></td>
+                                <td><input type="text" name="duration" /></td>
+                                <td><input type="text" name="description" /></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" name="spell-type" /></td>
+                                <td><input type="text" name="spell-name" /></td>
+                                <td><input type="text" name="cast-time" /></td>
+                                <td><input type="text" name="range" /></td>
+                                <td><input type="text" name="duration" /></td>
+                                <td><input type="text" name="description" /></td>
+                            </tr>
+
+                            <tr>
+                                <td><input type="text" name="spell-type" /></td>
+                                <td><input type="text" name="spell-name" /></td>
+                                <td><input type="text" name="cast-time" /></td>
+                                <td><input type="text" name="range" /></td>
+                                <td><input type="text" name="duration" /></td>
+                                <td><input type="text" name="description" /></td>
+                            </tr>         
+                            <tr>
+                                <td><input type="text" name="spell-type" /></td>
+                                <td><input type="text" name="spell-name" /></td>
+                                <td><input type="text" name="cast-time" /></td>
+                                <td><input type="text" name="range" /></td>
+                                <td><input type="text" name="duration" /></td>
+                                <td><input type="text" name="description" /></td>
+                            </tr>              
+                            
+                                
+                            <tr>
+                                <td><input type="text" name="spell-type" /></td>
+                                <td><input type="text" name="spell-name" /></td>
+                                <td><input type="text" name="cast-time" /></td>
+                                <td><input type="text" name="range" /></td>
+                                <td><input type="text" name="duration" /></td>
+                                <td><input type="text" name="description" /></td>
+                            </tr>
+                               
+                            <tr>
+                                <td><input type="text" name="spell-type" /></td>
+                                <td><input type="text" name="spell-name" /></td>
+                                <td><input type="text" name="cast-time" /></td>
+                                <td><input type="text" name="range" /></td>
+                                <td><input type="text" name="duration" /></td>
+                                <td><input type="text" name="description" /></td>
+                            </tr>
+                              
+                            <tr>
+                                <td><input type="text" name="spell-type" /></td>
+                                <td><input type="text" name="spell-name" /></td>
+                                <td><input type="text" name="cast-time" /></td>
+                                <td><input type="text" name="range" /></td>
+                                <td><input type="text" name="duration" /></td>
+                                <td><input type="text" name="description" /></td>
+                            </tr>
+                                
+                            <tr>
+                                <td><input type="text" name="spell-type" /></td>
+                                <td><input type="text" name="spell-name" /></td>
+                                <td><input type="text" name="cast-time" /></td>
+                                <td><input type="text" name="range" /></td>
+                                <td><input type="text" name="duration" /></td>
+                                <td><input type="text" name="description" /></td>
+                            </tr>
+                                
+                            <tr>
+                                <td><input type="text" name="spell-type" /></td>
+                                <td><input type="text" name="spell-name" /></td>
+                                <td><input type="text" name="cast-time" /></td>
+                                <td><input type="text" name="range" /></td>
+                                <td><input type="text" name="duration" /></td>
+                                <td><input type="text" name="description" /></td>
+                            </tr>
+                               
+                            <tr>
+                                <td><input type="text" name="spell-type" /></td>
+                                <td><input type="text" name="spell-name" /></td>
+                                <td><input type="text" name="cast-time" /></td>
+                                <td><input type="text" name="range" /></td>
+                                <td><input type="text" name="duration" /></td>
+                                <td><input type="text" name="description" /></td>
+                            </tr>
+                                
+                            <tr>
+                                <td><input type="text" name="spell-type" /></td>
+                                <td><input type="text" name="spell-name" /></td>
+                                <td><input type="text" name="cast-time" /></td>
+                                <td><input type="text" name="range" /></td>
+                                <td><input type="text" name="duration" /></td>
+                                <td><input type="text" name="description" /></td>
+                            </tr>
+
+                            <tr>
+                                <td><input type="text" name="spell-type" /></td>
+                                <td><input type="text" name="spell-name" /></td>
+                                <td><input type="text" name="cast-time" /></td>
+                                <td><input type="text" name="range" /></td>
+                                <td><input type="text" name="duration" /></td>
+                                <td><input type="text" name="description" /></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" name="spell-type" /></td>
+                                <td><input type="text" name="spell-name" /></td>
+                                <td><input type="text" name="cast-time" /></td>
+                                <td><input type="text" name="range" /></td>
+                                <td><input type="text" name="duration" /></td>
+                                <td><input type="text" name="description" /></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" name="spell-type" /></td>
+                                <td><input type="text" name="spell-name" /></td>
+                                <td><input type="text" name="cast-time" /></td>
+                                <td><input type="text" name="range" /></td>
+                                <td><input type="text" name="duration" /></td>
+                                <td><input type="text" name="description" /></td>
+                            </tr>
+
+                            <tr>
+                                <td><input type="text" name="spell-type" /></td>
+                                <td><input type="text" name="spell-name" /></td>
+                                <td><input type="text" name="cast-time" /></td>
+                                <td><input type="text" name="range" /></td>
+                                <td><input type="text" name="duration" /></td>
+                                <td><input type="text" name="description" /></td>
+                            </tr>         
+                            <tr>
+                                <td><input type="text" name="spell-type" /></td>
+                                <td><input type="text" name="spell-name" /></td>
+                                <td><input type="text" name="cast-time" /></td>
+                                <td><input type="text" name="range" /></td>
+                                <td><input type="text" name="duration" /></td>
+                                <td><input type="text" name="description" /></td>
+                            </tr>                                    
                         </table>
                     </div>
                 </div>
@@ -1286,6 +1418,10 @@
             </div>
         </footer>
     </div>
+
+    <input type="file" id="loadFile" accept=".json" style="display:none">
+    <script type="text/javascript" src="js/load.js"></script>
+
 </body>
 
 </html>

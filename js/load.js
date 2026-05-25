@@ -1,8 +1,31 @@
+//New code from copilot for listening to the File API
+document.getElementById("loadFile").addEventListener("change", function () {
+    const file = this.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function () {
+        // Remove the "var loadJson = " prefix
+        const text = reader.result.trim();
+        const jsonText = text.replace(/^var\s+loadJson\s*=\s*/, "");
+
+        // Parse JSON into the global loadJson
+        window.loadJson = JSON.parse(jsonText);
+
+        // Populate the sheet
+        populateSheetFromJson();
+    };
+
+    reader.readAsText(file);
+});
+
+
 function loadNewSheet(argument) {
     location.reload();
 }
 
-$(document).ready(function(argument) {
+function populateSheetFromJson() {
+
 
     //Change the title to the character name
     if (loadJson.page1.basic_info.char_name)
@@ -280,17 +303,17 @@ $(document).ready(function(argument) {
     }
 
     //Load Spells
-    if (loadJson.page3.spells) {
-        $.each(loadJson.page3.spells, function(index, value) {
-            var child = index + 2; // +2 because of header row
-            $('#page-3 #spells table.spell-table tr:nth-child(' + child + ') input[name="spell-type"]').val(value.spell_type);
-            $('#page-3 #spells table.spell-table tr:nth-child(' + child + ') input[name="spell-name"]').val(value.spell_name);
-            $('#page-3 #spells table.spell-table tr:nth-child(' + child + ') input[name="cast-time"]').val(value.cast_time);
-            $('#page-3 #spells table.spell-table tr:nth-child(' + child + ') input[name="range"]').val(value.range);
-            $('#page-3 #spells table.spell-table tr:nth-child(' + child + ') input[name="duration"]').val(value.duration);
-            $('#page-3 #spells table.spell-table tr:nth-child(' + child + ') input[name="description"]').val(value.description);
-        });
-    }
+    var table = $('#spell-list');
+    $.each(loadJson.page3.spells, function(index, value) {
+        var row = table.find('tr').eq(index); // +1 skips header
+        row.find('input[name="spell-type"]').val(value.spell_type);
+        row.find('input[name="spell-name"]').val(value.spell_name);
+        row.find('input[name="cast-time"]').val(value.cast_time);
+        row.find('input[name="range"]').val(value.range);
+        row.find('input[name="duration"]').val(value.duration);
+        row.find('input[name="description"]').val(value.description);
+    });
+
 
     $('#page-3 #spells #level-1 input[name="total-1"]').val(loadJson.page3.spells.level_1.total);
     //In changes.js
@@ -383,4 +406,10 @@ $(document).ready(function(argument) {
 
 
 
+}
+
+$(document).ready(function () {
+    if (window.loadJson) {
+        populateSheetFromJson();
+    }
 });
