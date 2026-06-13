@@ -1,20 +1,12 @@
-$(document).ready(function(argument) {
+$(document).ready(function () {
 
-    $('#menu #menu-toggle').click(function(argument) {
-        $('#menu #menu-buttons').toggle();
-        $('#menu #menu-toggle').toggleClass('change');
+    // Delegated empty/fill for dynamic charge rows
+    $('#charges').on('click', '.charge-empty', function () {
+        $(this).closest('.charge-row').find('input[type="checkbox"]').prop('checked', false);
     });
 
-
-    $('#charges .empty').click(function(argument) {
-        $(this).parent().find('input[type="checkbox"]').each(function(argument) {
-            $(this).prop("checked", false);
-        });
+    $('#charges').on('click', '.charge-fill', function () {
+        $(this).closest('.charge-row').find('input[type="checkbox"]').prop('checked', true);
     });
 
-    $('#charges .fill').click(function(argument) {
-        $(this).parent().find('input[type="checkbox"]').each(function(argument) {
-            $(this).prop("checked", true);
-        });
-    });
 });

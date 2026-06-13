@@ -93,26 +93,33 @@ textarea {
 
 .page,
 .page-width {
-    max-width: 80%;
-    margin: auto;
+    max-width: 95%;
+    margin: 0 auto;
+    overflow-x: hidden;
 }
 
 #top-bar .label {
-    font-size: 1.1em;
+    font-size: 0.85em;
 }
 
 #top-bar .input-frame {
     background-size: contain;
-    padding: 15px;
+    padding: 8px;
     position: relative;
 }
 
 #top-bar input {
-    font-size: 24px;
+    font-size: 18px;
     margin: auto;
     display: block;
     text-align: center;
     box-shadow: 0 2px 5px 0 rgb(116 155 226 / 48%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+}
+
+/* Auto-calc fields get white backgrounds so they stand out */
+#top-bar input[name="passive-perception"],
+#top-bar input[name="spell-dc"] {
+    background-color: white !important;
 }
 
 #top-bar .box {
@@ -129,7 +136,7 @@ textarea {
 }
 
 #attributes .label {
-    font-size: 1.2em;
+    font-size: 0.9em;
 }
 
 #attributes .box {
@@ -144,22 +151,23 @@ textarea {
 
 #attributes .att {
     width: 60%;
-    height: 46%;
-    font-size: 44px;
+    height: auto;
+    font-size: 18px;
     margin: auto;
     display: block;
     text-align: center;
+    background-color: var(--dnd-parch-dk);
     box-shadow: 0 2px 5px 0 rgb(116 155 226 / 48%), 0 2px 10px 0 rgb(0 0 0 / 12%);
     border-radius: 4px;
 }
 
 #attributes .att-mod {
     width: 40%;
-    font-size: 24px;
+    font-size: 18px;
     margin: auto;
     display: block;
     text-align: center;
-    background: transparent;
+    background: white;
     border-radius: 4px;
     padding: 5px;
     /*box-shadow: 0 2px 5px 0 rgb(116 155 226 / 48%), 0 2px 10px 0 rgb(0 0 0 / 12%);*/
@@ -179,14 +187,27 @@ textarea {
 }
 
 #status>div {
-    min-height: 191px;
+    min-height: 0;
     border-right: 1px solid #ccc!important;
     border-top: 1px solid #ccc!important;
 }
 
+/* ── Death saves — label + checkboxes on one line ── */
+#successes, #failures {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    font-size: 0.85em;
+}
+#success-num, #failure-num {
+    display: inline-flex;
+    gap: 4px;
+    align-items: center;
+}
+
 #saves-skills>div {
-    /*min-height: 240px;*/
-    min-width: 290px;
+    min-width: 160px;
     border-right: 1px solid #ccc!important;
     border-top: 1px solid #ccc!important;
 }
@@ -205,17 +226,21 @@ textarea {
 
 #hit-dice>div {
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    flex-wrap: wrap;
 }
 
 #hit-dice input[name="hit-dice"] {
-    width: 70%;
-    height: 66%;
-    font-size: 44px;
-    margin: auto;
-    display: block;
+    width: 60px;
+    height: auto;
+    font-size: 1em;
+    margin: 0;
+    display: inline;
     text-align: center;
-    margin-top: 15%;
-    border-radius: 7px;
+    border-radius: 4px;
     box-shadow: 0 2px 5px 0 rgb(116 155 226 / 48%), 0 2px 10px 0 rgb(0 0 0 / 12%);
 }
 
@@ -225,7 +250,9 @@ textarea {
 
 #hit-dice input[name="current-hd"] {
     border-bottom: 1px solid black;
-    width: 96px;
+    width: 50px;
+    display: inline;
+    font-size: 1em;
 }
 
 #hit-points {
@@ -237,25 +264,17 @@ textarea {
     padding: 8px;
 }
 
-#hit-points input[name="temp-health"] {
-    border-radius: 7px;
-    box-shadow: 0 2px 5px 0 rgb(116 155 226 / 48%), 0 2px 10px 0 rgb(0 0 0 / 12%);
-    width: 80px;
-    height: 44px;
-    margin: auto;
-    text-align: center;
-    font-size: 2em;
-}
-
+#hit-points input[name="temp-health"],
 #hit-points #current-health input,
 #hit-points #max-health input {
-    width: 100px;
-    height: 66%;
-    font-size: 44px;
+    width: 85%;
+    height: auto;
+    font-size: 1.2em;
     border-radius: 7px;
     box-shadow: 0 2px 5px 0 rgb(116 155 226 / 48%), 0 2px 10px 0 rgb(0 0 0 / 12%);
     margin: auto;
     text-align: center;
+    display: block;
 }
 
 #charges input {
@@ -446,7 +465,56 @@ td {
     display: block;
 }
 
+/* Drag handle column */
+#spell-list .drag-handle {
+    cursor: grab;
+    color: #90a4ae;
+    font-size: 1.1em;
+    text-align: center;
+    vertical-align: middle;
+    user-select: none;
+    padding: 0 4px;
+}
+#spell-list .drag-handle:active {
+    cursor: grabbing;
+}
+
+/* Row being dragged — fade it so the drop target is obvious */
+#spell-list tr.dragging {
+    opacity: 0.35;
+}
+
+/* Insertion-line indicators */
+#spell-list tr.drag-over-top {
+    box-shadow: inset 0 2px 0 0 #546e7a;
+}
+#spell-list tr.drag-over-bottom {
+    box-shadow: inset 0 -2px 0 0 #546e7a;
+}
+
+/* Spell-list delete button — don't constrain it like the text inputs */
+#spell-list .spell-delete {
+    padding: 2px 6px;
+    line-height: 1;
+    font-size: 0.85em;
+    min-width: unset;
+    max-width: unset;
+    width: auto;
+    border-bottom: none;
+}
+
+#spell-list td:last-child {
+    text-align: center;
+    vertical-align: middle;
+}
+
 /* Page 4 */
+
+/* Create a BFC so floated w3-col children don't collapse the container */
+#character-background,
+#personality {
+    overflow: hidden;
+}
 
 #character-background input {
     border-bottom: 1px solid gray;
@@ -486,6 +554,273 @@ td {
 
 .w3-card {
     background-color: #FFFFFF;
+}
+
+
+/* ================================================================
+   D&D THEME
+   Palette drawn from aged parchment, dark leather, ember gold,
+   and deep crimson — matching the character portrait.
+   ================================================================ */
+
+:root {
+    --dnd-stone:      #1a0e06;   /* page background — dungeon floor   */
+    --dnd-leather:    #3d2010;   /* buttons, sidebar, headers          */
+    --dnd-leather-h:  #57301a;   /* hover state on leather             */
+    --dnd-parchment:  #f5e8cc;   /* card/panel background              */
+    --dnd-parch-dk:   #e6d3a3;   /* slightly darker parchment          */
+    --dnd-gold:       #c8953a;   /* borders, labels, accents           */
+    --dnd-gold-lt:    #e8c060;   /* hover/highlight gold               */
+    --dnd-crimson:    #8b1a1a;   /* section labels                     */
+    --dnd-text:       #1f0d03;   /* body text on parchment             */
+    --dnd-text-lt:    #f5e8cc;   /* text on dark leather               */
+    --dnd-serif:      'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif;
+}
+
+/* ── Page background ── */
+html {
+    overflow-x: hidden;
+}
+
+body.w3-flat-clouds {
+    background-color: var(--dnd-stone) !important;
+    color: var(--dnd-text);
+    overflow-x: hidden;
+}
+
+/* ── Sidebar ── */
+#mySidebar {
+    display: block !important;
+    width: 160px;
+    background-color: var(--dnd-leather) !important;
+    border-right: 2px solid var(--dnd-gold) !important;
+}
+
+#menu { display: none !important; }
+
+#main-content { margin-left: 162px; }
+#mySidebar .w3-bar-item {
+    color: var(--dnd-text-lt) !important;
+    border-bottom: 1px solid rgba(200,149,58,0.2);
+    font-family: var(--dnd-serif);
+    letter-spacing: 0.04em;
+}
+#mySidebar .w3-bar-item:hover,
+#mySidebar .w3-hover-blue-gray:hover {
+    background-color: var(--dnd-leather-h) !important;
+    color: var(--dnd-gold-lt) !important;
+}
+#mySidebar .info {
+    color: var(--dnd-parch-dk);
+    border-top-color: var(--dnd-gold) !important;
+}
+#mySidebar .info .label {
+    color: var(--dnd-parch-dk);
+}
+.auto-filled-border {
+    background-color: rgba(232, 192, 96, 0.08);
+}
+
+/* ── Menu ☰ and scroll-to-top ^ ── */
+#menu, #scroll-to-top {
+    background-color: var(--dnd-leather) !important;
+    color: var(--dnd-gold) !important;
+    border: 1px solid var(--dnd-gold) !important;
+}
+#menu:hover, #scroll-to-top:hover {
+    background-color: var(--dnd-leather-h) !important;
+    color: var(--dnd-gold-lt) !important;
+}
+
+/* ── Cards → aged parchment ── */
+.w3-card {
+    background-color: var(--dnd-parchment) !important;
+    border: 1px solid rgba(200,149,58,0.35) !important;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.55),
+                inset 0 0 60px rgba(200,149,58,0.04) !important;
+}
+
+/* ── All w3-blue-gray elements → dark leather ── */
+.w3-blue-gray,
+button.w3-blue-gray,
+a.w3-blue-gray {
+    background-color: var(--dnd-leather) !important;
+    color: var(--dnd-text-lt) !important;
+}
+.w3-blue-gray:hover,
+button.w3-blue-gray:hover,
+a.w3-blue-gray:hover {
+    background-color: var(--dnd-leather-h) !important;
+    color: var(--dnd-gold-lt) !important;
+}
+
+/* ── Expando buttons — add gold left-border accent ── */
+button.expando {
+    border-left: 4px solid var(--dnd-gold) !important;
+    font-family: var(--dnd-serif);
+    letter-spacing: 0.06em;
+    font-size: 1.05em;
+}
+
+/* ── Labels & sub-labels ── */
+.label {
+    color: var(--dnd-crimson);
+    font-family: var(--dnd-serif);
+}
+.sub-label {
+    color: #5a3018;
+    font-family: var(--dnd-serif);
+}
+
+/* ── Input underlines ── */
+#basic-info input,
+#character-info input {
+    border-bottom: 1px solid var(--dnd-gold) !important;
+}
+#saves-skills input[type="text"] {
+    border-color: rgba(139,26,26,0.5) !important;
+    border-bottom-color: var(--dnd-crimson) !important;
+}
+
+/* ── Checkboxes ── */
+[type=checkbox],
+[type=radio] {
+    accent-color: var(--dnd-crimson);
+}
+
+/* ── Spell / attack table headers ── */
+.spell-table th,
+#attacks th {
+    background-color: var(--dnd-leather) !important;
+    color: var(--dnd-gold) !important;
+    font-family: var(--dnd-serif);
+    letter-spacing: 0.04em;
+}
+.spell-table tr:nth-child(even) {
+    background-color: rgba(200,149,58,0.07);
+}
+
+/* ── Drag handle — use gold on parchment ── */
+#spell-list .drag-handle {
+    color: var(--dnd-gold);
+    opacity: 0.6;
+}
+
+/* ── Add-row button ── */
+#add-spell-row {
+    border: 1px dashed var(--dnd-gold) !important;
+    font-family: var(--dnd-serif);
+    letter-spacing: 0.04em;
+}
+
+/* ── Death saves bar at base of header card ── */
+.header-death-saves {
+    padding: 4px 12px 6px;
+    border-top: 1px solid rgba(200,149,58,0.2);
+    clear: both;
+    font-size: 0.82em;
+}
+.header-death-saves .label,
+.header-death-saves .sub-label {
+    display: inline;
+    font-size: 0.82em;
+    margin-right: 4px;
+}
+.header-death-saves input[type="checkbox"] {
+    margin-right: 3px;
+}
+
+/* ── Compact header info columns ── */
+.header-col {
+    padding: 4px 8px;
+    border-left: 1px solid rgba(200,149,58,0.2);
+}
+
+.header-field {
+    margin-bottom: 3px;
+}
+
+.header-field input[type="text"] {
+    font-size: 0.82em;
+    width: 100%;
+    padding: 1px 4px;
+}
+
+.header-field .label,
+.header-col > .label {
+    font-size: 0.72em;
+    display: block;
+    line-height: 1.3;
+}
+
+/* Two tiny inline inputs for current hit dice count + die type */
+.hd-input {
+    width: 42px !important;
+    display: inline-block !important;
+    font-size: 0.82em !important;
+}
+
+/* Conditions & Boons textareas in the header */
+#col-conditions textarea {
+    width: 100%;
+    font-size: 0.78em;
+    min-height: 48px;
+    margin-bottom: 2px;
+}
+
+/* ── Footer ── */
+.footer {
+    background-color: var(--dnd-leather) !important;
+    color: var(--dnd-text-lt) !important;
+    font-family: var(--dnd-serif);
+}
+.footer a {
+    color: var(--dnd-gold) !important;
+}
+.footer a:hover {
+    color: var(--dnd-gold-lt) !important;
+}
+
+/* ── Character portrait in header ── */
+#name-portrait-col {
+    border-right: 1px solid rgba(200,149,58,0.25);
+}
+
+/* Right info wrapper — overflow:auto contains the floated w3-col children */
+#right-info {
+    overflow: auto;
+}
+
+#portrait-cell {
+    padding: 8px 12px 12px;
+    text-align: center;
+}
+
+#character-portrait {
+    width: 100%;
+    max-width: 100px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    border-radius: 6px;
+    border: 3px solid var(--dnd-gold);
+    box-shadow:
+        0 0 0 1px rgba(200,149,58,0.3),
+        0 0 20px rgba(200,149,58,0.35),
+        0 8px 32px rgba(0,0,0,0.8);
+    filter: saturate(1.1) contrast(1.05);
+}
+
+/* Small decorative caption below portrait */
+#portrait-cell .portrait-name {
+    display: block;
+    margin-top: 6px;
+    font-family: var(--dnd-serif);
+    font-size: 0.85em;
+    color: var(--dnd-crimson);
+    font-style: italic;
+    letter-spacing: 0.05em;
+    text-align: center;
 }
 
 

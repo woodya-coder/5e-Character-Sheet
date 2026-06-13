@@ -20,21 +20,20 @@ function att_attack() {
 	var damage = dice + ((damage_bonus)<0?"":"+") + damage_bonus;
 
 	$('#attacks tbody').append(
-		`
-		<tr>
+		`<tr draggable="true">
+			<td class="drag-handle" title="Drag to reorder">⠿</td>
 			<td><input type="text" name="name" value="`+ name +`"/></td>
 			<td><input type="text" name="stat" value="`+ stat +`"/></td>
 			<td><input type="text" name="toHit" value="`+ (to_hit?to_hit : dc) +`"/></td>
 			<td><input type="text" name="damage" value="`+ damage +`"/></td>
 			<td><input type="text" name="damage_type" value="`+ damage_type +`"/></td>
-			<td><button>X</button></td>
-		</tr>
-		`
+			<td><button type="button" class="atk-delete w3-button w3-red w3-small w3-round">✕</button></td>
+		</tr>`
 	);
 
 }
 
-$('document').ready(function (argument) {
+$(document).ready(function () {
 
 	$('#attack-form select[name="type"]').change(function (argument) {
 		if ($(this).val() == 'toHit') {
@@ -51,8 +50,8 @@ $('document').ready(function (argument) {
 		$('#attack-form input[name="dc"]').val(dc);
 	});
 
-	$('#attacks tbody').on('click', 'button', function (argument) {
-		$(this).parent().parent().remove();
+	$('#attacks tbody').on('click', '.atk-delete', function () {
+		$(this).closest('tr').remove();
 	});
 
 });

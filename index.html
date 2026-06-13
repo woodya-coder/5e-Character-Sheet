@@ -25,78 +25,125 @@
     <!-- Sidebar -->
     <!--
 	page-1: Attributes
-	page-2: Equipment
-	page-3: Spell Sheet
+	page-2: Inv. & NPCs
+	page-3: Spells & Feats
 	page-4: Backstory
 	page-5: Notes
+	page-6: Attacks & Resources
 -->
-    <div class="w3-sidebar w3-bar-block w3-border-right w3-flat-clouds w3-animate-left" style="display:none" id="mySidebar">
-        <button onclick="w3_close()" class="w3-bar-item w3-large w3-button w3-hover-blue-gray">Close &times;</button>
-        <a href="#" class="w3-bar-item w3-button w3-hover-blue-gray" onclick="openPage('page-1'); w3_close()">Attributes</a>
-        <a href="#" class="w3-bar-item w3-button w3-hover-blue-gray" onclick="openPage('page-4'); w3_close()">Backstory</a>
-        <a href="#" class="w3-bar-item w3-button w3-hover-blue-gray" onclick="openPage('page-2'); w3_close()">Inv. & NPCs</a>
-        <a href="#" class="w3-bar-item w3-button w3-hover-blue-gray" onclick="openPage('page-3'); w3_close()">Spells & Feats1</a>
-        <a href="#" class="w3-bar-item w3-button w3-hover-blue-gray" onclick="openPage('page-5'); w3_close()">Notes</a>
-        <a href="#" class="w3-bar-item w3-button w3-hover-blue-gray" onclick="document.getElementById('loadFile').click(); w3_close()">Load Sheet</a>
-        <a href="#" class="w3-bar-item w3-button w3-hover-blue-gray" onclick="saveSheet(); w3_close()">Save Sheet</a>
-        <a href="#" class="w3-bar-item w3-button w3-hover-blue-gray" onclick="lock()">Lock/Unlock Sheet</a>
+    <div class="w3-sidebar w3-bar-block w3-border-right w3-flat-clouds" id="mySidebar">
+        <a href="#" class="w3-bar-item w3-button w3-hover-blue-gray" onclick="openPage('page-1')">Attributes</a>
+        <a href="#" class="w3-bar-item w3-button w3-hover-blue-gray" onclick="openPage('page-6')">Attacks &amp; Resources</a>
+        <a href="#" class="w3-bar-item w3-button w3-hover-blue-gray" onclick="openPage('page-3')">Spells &amp; Feats</a>
+        <a href="#" class="w3-bar-item w3-button w3-hover-blue-gray" onclick="openPage('page-2')">Inv. &amp; NPCs</a>
+        <a href="#" class="w3-bar-item w3-button w3-hover-blue-gray" onclick="openPage('page-4')">Backstory</a>
+        <a href="#" class="w3-bar-item w3-button w3-hover-blue-gray" onclick="openPage('page-5')">Notes</a>
+        <a href="#" class="w3-bar-item w3-button w3-hover-blue-gray" onclick="loadSheet()">Load Sheet</a>
+        <a href="#" class="w3-bar-item w3-button w3-hover-blue-gray" onclick="saveSheet()">Save Sheet</a>
+        <a href="#" class="w3-bar-item w3-button w3-hover-blue-gray" onclick="lock()">Lock/Unlock</a>
         <div class="info w3-margin-top w3-border-top">
-            <div class="label">Info & Help</div>
-            <div class="w3-margin-top"><span class="auto-filled-border w3-round">Alt Color</span> = Auto-Filled</div>
+            <div class="label">Info &amp; Help</div>
         </div>
     </div>
-    <!-- Sidebar Button -->
-    <!-- Sidebar Button -->
-    <!-- Sidebar Button -->
     <div>
-        <button id="menu" class="w3-button w3-xlarge w3-blue-gray w3-display-topleft w3-margin w3-round" onclick="w3_open()">☰</button>
         <button id="scroll-to-top" class="w3-button w3-xlarge w3-blue-gray w3-round">^</button>
     </div>
-    <div onclick="w3_close()">
+    <div id="main-content">
         <!-- Header -->
         <!-- Header -->
         <!-- Header -->
         <!-- Basic Info -->
         <header id="character-basic-info" class="page-width w3-container w3-content w3-margin-top">
             <div id="basic-info" class="w3-col w3-card w3-round w3-margin-bottom">
-                <div class="w3-col w3-padding m6 l4">
-                    <input type="text" name="char-name" />
-                    <span class="label">Character Name</span>
+                <!-- Portrait + Name (~25% width) -->
+                <div class="w3-col m12 l3" id="name-portrait-col">
+                    <div class="w3-padding">
+                        <input type="text" name="char-name" />
+                        <span class="label">Character Name</span>
+                    </div>
+                    <div id="portrait-cell">
+                        <img id="character-portrait" src="imgs/character-portrait.jpeg" alt="Character Portrait">
+                        <span class="portrait-name">— Your Character —</span>
+                    </div>
                 </div>
-                <div class="w3-col w3-padding m6 l4">
-                    <input type="text" name="level">
-                    <span class="label">Class/Level</span>
+                <!-- Col 1: Class/Level × 2, Experience, Background -->
+                <div class="w3-col m6 l2 header-col" id="col-class">
+                    <div class="header-field">
+                        <input type="text" name="level">
+                        <span class="label">Class / Level</span>
+                    </div>
+                    <div class="header-field">
+                        <input type="text" name="level-two">
+                        <span class="label">Class / Level 2</span>
+                    </div>
+                    <div class="header-field">
+                        <input type="text" name="exp" />
+                        <span class="label">Experience</span>
+                    </div>
+                    <div class="header-field">
+                        <input type="text" name="background" />
+                        <span class="label">Background</span>
+                    </div>
                 </div>
-                <div class="w3-col w3-padding m6 l4">
-                    <input type="text" name="level-two">
-                    <span class="label">Class/Level</span>
+                <!-- Col 2: Race, Alignment, Deity, Hit Die -->
+                <div class="w3-col m6 l2 header-col" id="col-race">
+                    <div class="header-field">
+                        <input type="text" name="race-class" />
+                        <span class="label">Race</span>
+                    </div>
+                    <div class="header-field">
+                        <input type="text" name="alignment" />
+                        <span class="label">Alignment</span>
+                    </div>
+                    <div class="header-field">
+                        <input type="text" name="deity">
+                        <span class="label">Deity</span>
+                    </div>
+                    <div class="header-field">
+                        <span class="label">Hit Die</span>
+                        <input type="text" name="current-hd" class="hd-input" placeholder="#" />
+                        <input type="text" name="hit-dice" class="hd-input" placeholder="d8" />
+                    </div>
                 </div>
-            </div>
-            <!-- Character Info -->
-            <div id="character-info" class="w3-col w3-card w3-round">
-                <div class="w3-col w3-padding m6 l4">
-                    <input type="text" name="race-class" />
-                    <span class="label">Race</span>
+                <!-- Col 3: Max HP, Current HP, Temp HP -->
+                <div class="w3-col m6 l2 header-col" id="col-hp">
+                    <div class="header-field">
+                        <input type="text" name="max-health" />
+                        <span class="label">Max HP</span>
+                    </div>
+                    <div class="header-field">
+                        <input type="text" name="current-health" />
+                        <span class="label">Current HP</span>
+                    </div>
+                    <div class="header-field">
+                        <input type="text" name="temp-health" />
+                        <span class="label">Temp HP</span>
+                    </div>
                 </div>
-                <div class="w3-col w3-padding m6 l4">
-                    <input type="text" name="background" />
-                    <span class="label">Background</span>
+                <!-- Col 4: Conditions & Boons -->
+                <div class="w3-col m6 l3 header-col" id="col-conditions">
+                    <div class="header-field">
+                        <span class="label">Conditions</span>
+                        <textarea name="conditions" rows="3"></textarea>
+                    </div>
+                    <div class="header-field">
+                        <span class="label">Boons</span>
+                        <textarea name="boons" rows="3"></textarea>
+                    </div>
                 </div>
-                <div class="w3-col w3-padding m6 l4">
-                    <input type="text" name="player-name" />
-                    <span class="label">Player Name</span>
-                </div>
-                <div class="w3-col w3-padding m6 l4">
-                    <input type="text" name="exp" />
-                    <span class="label">Experience</span>
-                </div>
-                <div class="w3-col w3-padding m6 l4">
-                    <input type="text" name="alignment" />
-                    <span class="label">Alignment</span>
-                </div>
-                <div class="w3-col w3-padding m6 l4">
-                    <input type="text" name="deity">
-                    <span class="label">Deity</span>
+                <!-- Death Saves: one line across the bottom of the header -->
+                <div id="death-saves" class="w3-col header-death-saves">
+                    <span class="label">Death Saves</span>
+                    &nbsp;
+                    <span class="sub-label">Success</span>
+                    <input class="w3-check" type="checkbox" name="success-1" />
+                    <input class="w3-check" type="checkbox" name="success-2" />
+                    <input class="w3-check" type="checkbox" name="success-3" />
+                    &nbsp;&nbsp;
+                    <span class="sub-label">Failure</span>
+                    <input class="w3-check" type="checkbox" name="failure-1" />
+                    <input class="w3-check" type="checkbox" name="failure-2" />
+                    <input class="w3-check" type="checkbox" name="failure-3" />
                 </div>
             </div>
         </header>
@@ -104,162 +151,105 @@
         <!-- Page 1 -->
         <!-- Page 1 -->
         <div id="page-1" class="page w3-container w3-content w3-margin-top" onclick="w3_close()">
-            <!-- Top Bar -->
+            <!-- Attributes (combined) -->
             <div class="w3-col w3-margin-bottom">
                 <button class="expando w3-button w3-bar-block w3-left-align w3-blue-gray">Attributes</button>
-                <div id="top-bar" class="w3-col w3-center w3-card w3-round w3-animate-opacity">
-                    <div class="w3-col w3-padding m4 l2">
-                        <div class="input-frame">
-                            <input type="text" name="proficiency" maxlength="2" size="2" />
+                <div class="w3-col w3-center w3-card w3-round w3-animate-opacity">
+                    <!-- Ability Scores -->
+                    <div id="attributes" class="w3-col w3-center">
+                        <div id="str" class="w3-col w3-padding m4 l2">
+                            <span class="label">Strength</span>
+                            <input type="text" class="att" name="str" maxlength="2" size="2" />
+                            <input type="text" class="att-mod auto-filled-border" name="str-mod" maxlength="2" size="2" />
                         </div>
-                        <div class="label-frame">
-                            <span class="label">Proficiency Bonus</span>
+                        <div id="dex" class="w3-col w3-padding m4 l2">
+                            <span class="label">Dexterity</span>
+                            <input type="text" class="att" name="dex" maxlength="2" size="2" />
+                            <input type="text" class="att-mod auto-filled-border" name="dex-mod" maxlength="2" size="2" />
                         </div>
-                    </div>
-                    <div class="w3-col w3-padding m4 l2">
-                        <div class="input-frame">
-                            <input type="text" name="initiative" maxlength="2" size="2" />
+                        <div id="con" class="w3-col w3-padding m4 l2">
+                            <span class="label">Constitution</span>
+                            <input type="text" class="att" name="con" maxlength="2" size="2" />
+                            <input type="text" class="att-mod auto-filled-border" name="con-mod" maxlength="2" size="2" />
                         </div>
-                        <div class="label-frame">
-                            <span class="label">Initiative Bonus</span>
+                        <div id="int" class="w3-col w3-padding m4 l2">
+                            <span class="label">Intelligence</span>
+                            <input type="text" class="att" name="int" maxlength="2" size="2" />
+                            <input type="text" class="att-mod auto-filled-border" name="int-mod" maxlength="2" size="2" />
                         </div>
-                    </div>
-                    <div class="w3-col w3-padding m4 l2">
-                        <div class="input-frame">
-                            <input class="auto-filled-border" type="text" name="passive-perception" maxlength="2" size="2" />
+                        <div id="wis" class="w3-col w3-padding m4 l2">
+                            <span class="label">Wisdom</span>
+                            <input type="text" class="att" name="wis" maxlength="2" size="2" />
+                            <input type="text" class="att-mod auto-filled-border" name="wis-mod" maxlength="2" size="2" />
                         </div>
-                        <div class="label-frame">
-                            <span class="label">Passive Perception</span>
-                        </div>
-                    </div>
-                    <div class="w3-col w3-padding m4 l2">
-                        <div class="input-frame">
-                            <input type="text" name="ac" maxlength="2" size="2" />
-                        </div>
-                        <div class="label-frame">
-                            <span class="label">Armor Class</span>
-                        </div>
-                    </div>
-                    <div class="w3-col w3-padding m4 l2">
-                        <div class="input-frame">
-                            <input type="text" name="speed" maxlength="2" size="2" />
-                        </div>
-                        <div class="label-frame">
-                            <span class="label">Speed</span>
+                        <div id="cha" class="w3-col w3-padding m4 l2">
+                            <span class="label">Charisma</span>
+                            <input type="text" class="att" name="cha" maxlength="2" size="2" />
+                            <input type="text" class="att-mod auto-filled-border" name="cha-mod" maxlength="2" size="2" />
                         </div>
                     </div>
-                    <div class="w3-col w3-padding m4 l2">
-                        <div class="input-frame">
-                            <input class="auto-filled-border" type="text" name="spell-dc" maxlength="2" size="2" />
+                    <!-- Derived Stats -->
+                    <div id="top-bar" class="w3-col w3-center">
+                        <div class="w3-col w3-padding m4 l2">
+                            <div class="label-frame">
+                                <span class="label">Proficiency Bonus</span>
+                            </div>
+                            <div class="input-frame">
+                                <input type="text" name="proficiency" maxlength="2" size="2" />
+                            </div>
                         </div>
-                        <div class="label-frame">
-                            <span class="label">Spell Save DC</span>
+                        <div class="w3-col w3-padding m4 l2">
+                            <div class="label-frame">
+                                <span class="label">Initiative Bonus</span>
+                            </div>
+                            <div class="input-frame">
+                                <input type="text" name="initiative" maxlength="2" size="2" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="w3-col w3-padding m4 l2" style="display:none">
-                        <div class="input-frame">
-                            <input type="text" name="insperation" maxlength="2" size="2" />
+                        <div class="w3-col w3-padding m4 l2">
+                            <div class="label-frame">
+                                <span class="label">Passive Perception</span>
+                            </div>
+                            <div class="input-frame">
+                                <input class="auto-filled-border" type="text" name="passive-perception" maxlength="2" size="2" />
+                            </div>
                         </div>
-                        <div class="label-frame">
-                            <span class="label">Insperation</span>
+                        <div class="w3-col w3-padding m4 l2">
+                            <div class="label-frame">
+                                <span class="label">Armor Class</span>
+                            </div>
+                            <div class="input-frame">
+                                <input type="text" name="ac" maxlength="2" size="2" />
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Attributes -->
-            <div class="w3-col w3-margin-bottom">
-                <button class="expando w3-button w3-bar-block w3-left-align w3-blue-gray">Attributes</button>
-                <div id="attributes" class="w3-col w3-center w3-card w3-round w3-animate-opacity">
-                    <div id="str" class="w3-col w3-padding m4 l2">
-                        <span class="label">Strength</span>
-                        <input type="text" class="att" name="str" maxlength="2" size="2" />
-                        <input type="text" class="att-mod auto-filled-border" name="str-mod" maxlength="2" size="2" />
-                    </div>
-                    <div id="dex" class="w3-col w3-padding m4 l2">
-                        <span class="label">Dexterity</span>
-                        <input type="text" class="att" name="dex" maxlength="2" size="2" />
-                        <input type="text" class="att-mod auto-filled-border" name="dex-mod" maxlength="2" size="2" />
-                    </div>
-                    <div id="con" class="w3-col w3-padding m4 l2">
-                        <span class="label">Constitution</span>
-                        <input type="text" class="att" name="con" maxlength="2" size="2" />
-                        <input type="text" class="att-mod auto-filled-border" name="con-mod" maxlength="2" size="2" />
-                    </div>
-                    <div id="int" class="w3-col w3-padding m4 l2">
-                        <span class="label">Intelligence</span>
-                        <input type="text" class="att" name="int" maxlength="2" size="2" />
-                        <input type="text" class="att-mod auto-filled-border" name="int-mod" maxlength="2" size="2" />
-                    </div>
-                    <div id="wis" class="w3-col w3-padding m4 l2">
-                        <span class="label">Wisdom</span>
-                        <input type="text" class="att" name="wis" maxlength="2" size="2" />
-                        <input type="text" class="att-mod auto-filled-border" name="wis-mod" maxlength="2" size="2" />
-                    </div>
-                    <div id="cha" class="w3-col w3-padding m4 l2">
-                        <span class="label">Charisma</span>
-                        <input type="text" class="att" name="cha" maxlength="2" size="2" />
-                        <input type="text" class="att-mod auto-filled-border" name="cha-mod" maxlength="2" size="2" />
+                        <div class="w3-col w3-padding m4 l2">
+                            <div class="label-frame">
+                                <span class="label">Speed</span>
+                            </div>
+                            <div class="input-frame">
+                                <input type="text" name="speed" maxlength="2" size="2" />
+                            </div>
+                        </div>
+                        <div class="w3-col w3-padding m4 l2">
+                            <div class="label-frame">
+                                <span class="label">Spell Save DC</span>
+                            </div>
+                            <div class="input-frame">
+                                <input class="auto-filled-border" type="text" name="spell-dc" maxlength="2" size="2" />
+                            </div>
+                        </div>
+                        <div class="w3-col w3-padding m4 l2" style="display:none">
+                            <div class="label-frame">
+                                <span class="label">Insperation</span>
+                            </div>
+                            <div class="input-frame">
+                                <input type="text" name="insperation" maxlength="2" size="2" />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             <!-- Status & Life -->
-            <div class="w3-col w3-margin-bottom w3-card w3-round">
-                <button class="expando w3-button w3-bar-block w3-left-align w3-blue-gray">Status</button>
-                <div id="status" class="w3-animate-opacity">
-                    <div id="hit-points" class="w3-col w3-padding  m8 l4 w3-border-right">
-                        <div id="temp-health" class="w3-col w3-padding">
-                            <input type="text" name="temp-health" />
-                            <br/>
-                            <span class="label w3-padding">Temporary Health</span>
-                        </div>
-                        <div id="current-health" class="w3-col s6 m6 l6">
-                            <input type="text" name="current-health" />
-                            <br/>
-                            <span class="label">Current Health</span>
-                        </div>
-                        <div id="max-health" class="w3-col s6 m6 l6">
-                            <input type="text" name="max-health" />
-                            <br/>
-                            <span class="label">Maximum Health</span>
-                        </div>
-                    </div>
-                    <div id="hit-dice" class="w3-col w3-padding m5 l2">
-                        <span class="label">Hit Dice</span>
-                        <div>
-                            <span class="sub-label">Current</span>
-                            <input class="label" type="text" name="current-hd" />
-                            <input type="text" name="hit-dice" />
-                        </div>
-                    </div>
-                    <div id="death-saves" class="w3-col w3-padding m5 l2">
-                        <span class="label">Death Saves</span>
-                        <div id="successes">
-                            <span class="sub-label">Success</span>
-                            <div id="success-num">
-                                <input class="w3-check" type="checkbox" name="success-1" />
-                                <input class="w3-check" type="checkbox" name="success-2" />
-                                <input class="w3-check" type="checkbox" name="success-3" />
-                            </div>
-                        </div>
-                        <div id="failures" class="">
-                            <span class="sub-label">Failure</span>
-                            <div id="failure-num">
-                                <input class="w3-check" type="checkbox" name="failure-1" />
-                                <input class="w3-check" type="checkbox" name="failure-2" />
-                                <input class="w3-check" type="checkbox" name="failure-3" />
-                            </div>
-                        </div>
-                    </div>
-                    <div id="conditions" class="w3-col w3-padding m4 l2">
-                        <span class="label">Conditions</span>
-                        <textarea name="conditions" rows="5"></textarea>
-                    </div>
-                    <div id="boons" class="w3-col w3-padding m4 l2">
-                        <span class="label">Boons</span>
-                        <textarea name="boons" rows="5"></textarea>
-                    </div>
-                </div>
-            </div>
             <!-- Saves & Skills -->
             <div class="w3-col w3-margin-bottom w3-card w3-round">
                 <button class="expando w3-button w3-bar-block w3-left-align w3-blue-gray">Saving Throws & Skills</button>
@@ -302,7 +292,7 @@
                             <span class="sub-label">Charisma</span>
                         </div>
                     </div>
-                    <div id="skills" class="w3-col w3-padding w3-left-align l2">
+                    <div class="skills-group w3-col w3-padding w3-left-align l2">
                         <div>
                             <span class="label">Strength</span>
                         </div>
@@ -317,7 +307,7 @@
                             <span class="sub-label">Athletics</span>
                         </div>
                     </div>
-                    <div id="skills" class="w3-col w3-padding w3-left-align l2">
+                    <div class="skills-group w3-col w3-padding w3-left-align l2">
                         <div>
                             <span class="label">Dexterity</span>
                         </div>
@@ -329,7 +319,7 @@
                             <input type="checkbox" name="prof" />
                             <input type="checkbox" name="expr" />
                             <input type="text" name="acrobatics-skill" maxlength="3" size="3" />
-                            <span class="sub-label">Acrobtics</span>
+                            <span class="sub-label">Acrobatics</span>
                         </div>
                         <div id="sleight-hand-skill" class="box">
                             <input type="checkbox" name="prof" />
@@ -344,7 +334,7 @@
                             <span class="sub-label">Stealth</span>
                         </div>
                     </div>
-                    <div id="skills" class="w3-col w3-padding w3-left-align l2">
+                    <div class="skills-group w3-col w3-padding w3-left-align l2">
                         <div>
                             <span class="label">Intelligence</span>
                         </div>
@@ -377,7 +367,7 @@
                             <span class="sub-label">Religion</span>
                         </div>
                     </div>
-                    <div id="skills" class="w3-col w3-padding w3-left-align l2">
+                    <div class="skills-group w3-col w3-padding w3-left-align l2">
                         <div>
                             <span class="label">Wisdom</span>
                         </div>
@@ -422,7 +412,7 @@
                             <span class="sub-label">Survival</span>
                         </div>
                     </div>
-                    <div id="skills" class="w3-col w3-padding w3-left-align l2">
+                    <div class="skills-group w3-col w3-padding w3-left-align l2">
                         <div>
                             <span class="label">Charisma</span>
                         </div>
@@ -468,207 +458,6 @@
 				<option value="wis">Wisdom</option>
 				<option value="cha">Charisma</option>
 			</select>
-                    </div>
-                </div>
-            </div>
-            <div id="prof-traits-container" class="w3-col m12 l4">
-                <!-- Proficiencies -->
-                <div id="proficiencies" class="w3-col w3-margin-bottom">
-                    <button class="expando w3-button w3-bar-block w3-left-align w3-blue-gray">Proficiencies</button>
-                    <div id="prof" class="w3-card w3-padding w3-round w3-animate-opacity">
-                        <div id="weapons-armor">
-                            <span class="label">Weapons & Armor</span>
-                            <textarea name="weapons-armor" rows="3"></textarea>
-                        </div>
-                        <div id="tools">
-                            <span class="label">Tools</span>
-                            <textarea name="tools" rows="3"></textarea>
-                        </div>
-                        <div id="languages">
-                            <span class="label">Known Languages</span>
-                            <textarea name="languages" rows="3"></textarea>
-                        </div>
-                    </div>
-                </div>
-                <!-- Features -->
-                <div id="features-container" class="w3-col w3-card w3-round w3-margin-bottom">
-                    <button class="expando w3-button w3-bar-block w3-left-align w3-blue-gray">Features & Traits</button>
-                    <div id="features" class="w3-padding w3-animate-opacity">
-                        <span class="label">Features and Traits</span>
-                        <textarea name="features" rows="11"></textarea>
-                    </div>
-                </div>
-            </div>
-            <!-- Charges, Ammo, Resources -->
-            <div id="charges-ammo" class="w3-col w3-card w3-round w3-margin-bottom m12 l8">
-                <button class="expando w3-button w3-bar-block w3-left-align w3-blue-gray">Class Resources, Ammo, & Charges</button>
-                <div id="charges" class="w3-padding w3-animate-opacity">
-                    <div id="charge-1" class="w3-col w3-padding m8 l8">
-                        <input type="text" name="charge-1" />
-                        <input type="checkbox" name="1" />
-                        <input type="checkbox" name="2" />
-                        <input type="checkbox" name="3" />
-                        <input type="checkbox" name="4" />
-                        <input type="checkbox" name="5" />
-                        <input type="checkbox" name="6" />
-                        <input type="checkbox" name="7" />
-                        <input type="checkbox" name="8" />
-                        <input type="checkbox" name="9" />
-                        <input type="checkbox" name="10" />
-                    </div>
-                    <div class="w3-col m4 l4">
-                        <button class="button empty w3-button w3-blue-gray w3-round-large">Empty</button>
-                        <button class="button fill w3-button w3-blue-gray w3-round-large">Fill</button>
-                    </div>
-                    <div id="charge-2" class="w3-col w3-padding m8 l8">
-                        <input type="text" name="charge-2" />
-                        <input type="checkbox" name="1" />
-                        <input type="checkbox" name="2" />
-                        <input type="checkbox" name="3" />
-                        <input type="checkbox" name="4" />
-                        <input type="checkbox" name="5" />
-                        <input type="checkbox" name="6" />
-                        <input type="checkbox" name="7" />
-                        <input type="checkbox" name="8" />
-                        <input type="checkbox" name="9" />
-                        <input type="checkbox" name="10" />
-                    </div>
-                    <div class="w3-col m4 l4">
-                        <button class="button empty w3-button w3-blue-gray w3-round-large">Empty</button>
-                        <button class="button fill w3-button w3-blue-gray w3-round-large">Fill</button>
-                    </div>
-                    <div id="charge-3" class="w3-col w3-padding m8 l8">
-                        <input type="text" name="charge-3" />
-                        <input type="checkbox" name="1" />
-                        <input type="checkbox" name="2" />
-                        <input type="checkbox" name="3" />
-                        <input type="checkbox" name="4" />
-                        <input type="checkbox" name="5" />
-                        <input type="checkbox" name="6" />
-                        <input type="checkbox" name="7" />
-                        <input type="checkbox" name="8" />
-                        <input type="checkbox" name="9" />
-                        <input type="checkbox" name="10" />
-                    </div>
-                    <div class="w3-col m4 l4">
-                        <button class="button empty w3-button w3-blue-gray w3-round-large">Empty</button>
-                        <button class="button fill w3-button w3-blue-gray w3-round-large">Fill</button>
-                    </div>
-                    <div id="charge-4" class="w3-col w3-padding m8 l8">
-                        <input type="text" name="charge-4" />
-                        <input type="checkbox" name="1" />
-                        <input type="checkbox" name="2" />
-                        <input type="checkbox" name="3" />
-                        <input type="checkbox" name="4" />
-                        <input type="checkbox" name="5" />
-                        <input type="checkbox" name="6" />
-                        <input type="checkbox" name="7" />
-                        <input type="checkbox" name="8" />
-                        <input type="checkbox" name="9" />
-                        <input type="checkbox" name="10" />
-                    </div>
-                    <div class="w3-col m4 l4">
-                        <button class="button empty w3-button w3-blue-gray w3-round-large">Empty</button>
-                        <button class="button fill w3-button w3-blue-gray w3-round-large">Fill</button>
-                    </div>
-                    <div id="charge-5" class="w3-col w3-padding m8 l8">
-                        <input type="text" name="charge-5" />
-                        <input type="checkbox" name="1" />
-                        <input type="checkbox" name="2" />
-                        <input type="checkbox" name="3" />
-                        <input type="checkbox" name="4" />
-                        <input type="checkbox" name="5" />
-                        <input type="checkbox" name="6" />
-                        <input type="checkbox" name="7" />
-                        <input type="checkbox" name="8" />
-                        <input type="checkbox" name="9" />
-                        <input type="checkbox" name="10" />
-                    </div>
-                    <div class="w3-col m4 l4">
-                        <button class="button empty w3-button w3-blue-gray w3-round-large">Empty</button>
-                        <button class="button fill w3-button w3-blue-gray w3-round-large">Fill</button>
-                    </div>
-                    <div id="charge-6" class="w3-col w3-padding m8 l8">
-                        <input type="text" name="charge-6" />
-                        <input type="checkbox" name="1" />
-                        <input type="checkbox" name="2" />
-                        <input type="checkbox" name="3" />
-                        <input type="checkbox" name="4" />
-                        <input type="checkbox" name="5" />
-                        <input type="checkbox" name="6" />
-                        <input type="checkbox" name="7" />
-                        <input type="checkbox" name="8" />
-                        <input type="checkbox" name="9" />
-                        <input type="checkbox" name="10" />
-                    </div>
-                    <div class="w3-col m4 l4">
-                        <button class="button empty w3-button w3-blue-gray w3-round-large">Empty</button>
-                        <button class="button fill w3-button w3-blue-gray w3-round-large">Fill</button>
-                    </div>
-                </div>
-            </div>
-            <!-- Attacks -->
-            <div class="w3-col w3-margin-bottom l8">
-                <button class="expando w3-button w3-bar-block w3-left-align w3-blue-gray">Attacks</button>
-                <div id="attacks-spells" class="w3-card w3-padding w3-round w3-animate-opacity">
-                    <table id="attacks">
-                        <tr>
-                            <th>Name</th>
-                            <th>Base Stat</th>
-                            <th>Bonus/DC</th>
-                            <th>Damage</th>
-                            <th>Damage Type</th>
-                        </tr>
-                    </table>
-                    <div id="add-attack">
-                        <span class="label title">Add a new attack:</span>
-                        <div id="attack-form">
-                            <div id="att-name" class="w3-rest w3-padding w3-card">
-                                <input type="text" name="name" />
-                                <span class="label">Name of the attack</span>
-                            </div>
-                            <div id="attack-stack" class="w3-rest w3-padding w3-card">
-                                <select name="stat">
-						<option value="str">Strength</option>
-						<option value="dex">Dexterity</option>
-						<option value="con">Constitution</option>
-						<option value="int">Intelligence</option>
-						<option value="wis">Wisdom</option>
-						<option value="cha">Charisma</option>
-					</select>
-                                <span class="label">Choose the base Stat</span>
-                            </div>
-                            <div id="attack-type" class="w3-rest w3-padding w3-card">
-                                <select name="type">
-						<option value="toHit">Roll to hit</option>
-						<option value="save">Save DC</option>
-					</select>
-                                <span class="label">Choose the type of attack</span>
-                            </div>
-                            <div id="attack-prof" class="w3-rest w3-padding w3-card">
-                                <input type="checkbox" name="proficiency">
-                                <span class="sub-label">Add Proficency</span>
-                            </div>
-                            <div id="attack-dc" class="w3-rest w3-padding w3-card" style="display: none;">
-                                <input type="text" name="dc" />
-                                <input type="checkbox" name="spell-dc" />
-                                <span class="sub-label">Use Spell DC?</span>
-                                <span class="label">Set DC</span>
-                            </div>
-                            <div id="attack-dice" class="w3-rest w3-padding w3-card">
-                                <input type="text" name="dice" />
-                                <span class="label">Enter Dice</span>
-                            </div>
-                            <div id="attack-bonus" class="w3-rest w3-padding w3-card">
-                                <input type="text" name="bonus" />
-                                <span class="label">Bonus</span>
-                            </div>
-                            <div id="attack-dmg-type" class="w3-rest w3-padding w3-card">
-                                <input type="text" name="dmg-type">
-                                <span class="label">Damage Type</span>
-                            </div>
-                            <button class="button w3-button w3-blue-gray w3-round-large" onclick="att_attack()">Add Attack</button>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -737,70 +526,32 @@
                         </div>
                     </div>
                     <div class="col-1 w3-col w3-padding l8">
-                        <table>
-                            <col style="width:89.99%">
-                            <col style="width:9.99%">
-                            <tr>
-                                <th>Equipment</th>
-                                <th>Weight</th>
-                            </tr>
-                            <tr>
-                                <td><input type="text" name="name" /></td>
-                                <td><input type="text" name="weight"></td>
-                            </tr>
-                            <tr>
-                                <td><input type="text" name="name" /></td>
-                                <td><input type="text" name="weight"></td>
-                            </tr>
-                            <tr>
-                                <td><input type="text" name="name" /></td>
-                                <td><input type="text" name="weight"></td>
-                            </tr>
-                            <tr>
-                                <td><input type="text" name="name" /></td>
-                                <td><input type="text" name="weight"></td>
-                            </tr>
-                            <tr>
-                                <td><input type="text" name="name" /></td>
-                                <td><input type="text" name="weight"></td>
-                            </tr>
-                            <tr>
-                                <td><input type="text" name="name" /></td>
-                                <td><input type="text" name="weight"></td>
-                            </tr>
-                            <tr>
-                                <td><input type="text" name="name" /></td>
-                                <td><input type="text" name="weight"></td>
-                            </tr>
-                            <tr>
-                                <td><input type="text" name="name" /></td>
-                                <td><input type="text" name="weight"></td>
-                            </tr>
-                            <tr>
-                                <td><input type="text" name="name" /></td>
-                                <td><input type="text" name="weight"></td>
-                            </tr>
-                            <tr>
-                                <td><input type="text" name="name" /></td>
-                                <td><input type="text" name="weight"></td>
-                            </tr>
-                            <tr>
-                                <td><input type="text" name="name" /></td>
-                                <td><input type="text" name="weight"></td>
-                            </tr>
-                            <tr>
-                                <td><input type="text" name="name" /></td>
-                                <td><input type="text" name="weight"></td>
-                            </tr>
-                            <tr>
-                                <td><input type="text" name="name" /></td>
-                                <td><input type="text" name="weight"></td>
-                            </tr>
-                            <tr id="total">
-                                <th>Total Weight</th>
-                                <td><input type="text" name="total-weight"></td>
-                            </tr>
+                        <table id="equipment-table">
+                            <colgroup>
+                                <col style="width:4%">
+                                <col style="width:76%">
+                                <col style="width:12%">
+                                <col style="width:8%">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Equipment</th>
+                                    <th>Weight</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="equipment-list">
+                            </tbody>
+                            <tfoot>
+                                <tr id="total">
+                                    <th colspan="2">Total Weight</th>
+                                    <td><input type="text" name="total-weight"></td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
                         </table>
+                        <button id="add-equipment-row" class="w3-button w3-blue-gray w3-round w3-margin-top">+ Add Item</button>
                     </div>
                 </div>
             </div>
@@ -838,28 +589,28 @@
                     </div>
                     <div class="w3-col w3-padding w3-border-right w3-border-bottom m12 l6">
                         <div class="w3-col w3-padding w3-right-align m5 l4">
-                            <div id="mount-name">
+                            <div id="mount-2-name">
                                 <span class="label">Name</span>
                                 <input type="text" name="mount-name-2" />
                             </div>
-                            <div id="mount-type">
+                            <div id="mount-2-type">
                                 <span class="label">Type</span>
                                 <input type="text" name="mount-type-2" />
                             </div>
-                            <div id="mount-health">
+                            <div id="mount-2-health">
                                 <span class="label">Health</span>
                                 <input type="text" name="mount-health-2" />
                             </div>
-                            <div id="mount-ac">
+                            <div id="mount-2-ac">
                                 <span class="label">AC</span>
                                 <input type="text" name="mount-ac-2" />
                             </div>
-                            <div id="mount-speed">
+                            <div id="mount-2-speed">
                                 <span class="label">Speed</span>
                                 <input type="text" name="mount-speed-2" />
                             </div>
                         </div>
-                        <div id="mount-notes" class="w3-col m7 l8">
+                        <div id="mount-2-notes" class="w3-col m7 l8">
                             <span class="label">Mount/Pet Attacks and Notes</span>
                             <textarea name="mount-notes-2" rows="10"></textarea>
                         </div>
@@ -927,7 +678,7 @@
                             <td>
                                 <div class="w3-col w3-padding">
                                     <div class="title box">
-                                        <div id="total-slots">
+                                        <div class="total-slots">
                                             <input type="text" name="total-1" maxlength="2" size="2" />
                                             <span class="sub-label">Slots Total</span>
                                         </div>
@@ -942,7 +693,7 @@
                             <td>
                                 <div class="w3-col w3-padding">
                                     <div class="title box">
-                                        <div id="total-slots">
+                                        <div class="total-slots">
                                             <input type="text" name="total-2" maxlength="2" size="2" />
                                             <span class="sub-label">Slots Total</span>
                                         </div>
@@ -957,7 +708,7 @@
                             <td>
                                 <div class="w3-col w3-padding">
                                     <div class="title box">
-                                        <div id="total-slots">
+                                        <div class="total-slots">
                                             <input type="text" name="total-3" maxlength="2" size="2" />
                                             <span class="sub-label">Slots Total</span>
                                         </div>
@@ -972,7 +723,7 @@
                             <td>
                                 <div class="w3-col w3-padding">
                                     <div class="title box">
-                                        <div id="total-slots">
+                                        <div class="total-slots">
                                             <input type="text" name="total-4" maxlength="2" size="2" />
                                             <span class="sub-label">Slots Total</span>
                                         </div>
@@ -987,7 +738,7 @@
                             <td>
                                 <div class="w3-col w3-padding">
                                     <div class="title box">
-                                        <div id="total-slots">
+                                        <div class="total-slots">
                                             <input type="text" name="total-5" maxlength="2" size="2" />
                                             <span class="sub-label">Slots Total</span>
                                         </div>
@@ -1004,336 +755,23 @@
             
                         <table id="spell-list" class="spell-table">
                             <tr>
+                                <th style="width: 3%"></th>
                                 <th style="width: 4%">Type</th>
-                                <th style="width: 15%">Spell Name</th>
+                                <th style="width: 14%">Spell Name</th>
                                 <th style="width: 5%">Cast Time</th>
                                 <th style="width: 5%">Range</th>
                                 <th style="width: 8%">Duration</th>
-                                <th style="width: 63%">Description</th>
+                                <th style="width: 56%">Description</th>
+                                <th style="width: 5%"></th>
                             </tr>
-                            <tr>
-                                <td><input type="text" name="spell-type" /></td>
-                                <td><input type="text" name="spell-name" /></td>
-                                <td><input type="text" name="cast-time" /></td>
-                                <td><input type="text" name="range" /></td>
-                                <td><input type="text" name="duration" /></td>
-                                <td><input type="text" name="description" /></td>
-                            </tr>
-                            <tr>
-                                <td><input type="text" name="spell-type" /></td>
-                                <td><input type="text" name="spell-name" /></td>
-                                <td><input type="text" name="cast-time" /></td>
-                                <td><input type="text" name="range" /></td>
-                                <td><input type="text" name="duration" /></td>
-                                <td><input type="text" name="description" /></td>
-                            </tr>
-                            <tr>
-                                <td><input type="text" name="spell-type" /></td>
-                                <td><input type="text" name="spell-name" /></td>
-                                <td><input type="text" name="cast-time" /></td>
-                                <td><input type="text" name="range" /></td>
-                                <td><input type="text" name="duration" /></td>
-                                <td><input type="text" name="description" /></td>
-                            </tr>
-                            <tr>
-                                <td><input type="text" name="spell-type" /></td>
-                                <td><input type="text" name="spell-name" /></td>
-                                <td><input type="text" name="cast-time" /></td>
-                                <td><input type="text" name="range" /></td>
-                                <td><input type="text" name="duration" /></td>
-                                <td><input type="text" name="description" /></td>
-                            </tr>
-                            <tr>
-                                <td><input type="text" name="spell-type" /></td>
-                                <td><input type="text" name="spell-name" /></td>
-                                <td><input type="text" name="cast-time" /></td>
-                                <td><input type="text" name="range" /></td>
-                                <td><input type="text" name="duration" /></td>
-                                <td><input type="text" name="description" /></td>
-                            </tr>
-                            <tr>
-                                <td><input type="text" name="spell-type" /></td>
-                                <td><input type="text" name="spell-name" /></td>
-                                <td><input type="text" name="cast-time" /></td>
-                                <td><input type="text" name="range" /></td>
-                                <td><input type="text" name="duration" /></td>
-                                <td><input type="text" name="description" /></td>
-                            </tr>
-                            <tr>
-                                <td><input type="text" name="spell-type" /></td>
-                                <td><input type="text" name="spell-name" /></td>
-                                <td><input type="text" name="cast-time" /></td>
-                                <td><input type="text" name="range" /></td>
-                                <td><input type="text" name="duration" /></td>
-                                <td><input type="text" name="description" /></td>
-                            </tr>
-                            <tr>
-                                <td><input type="text" name="spell-type" /></td>
-                                <td><input type="text" name="spell-name" /></td>
-                                <td><input type="text" name="cast-time" /></td>
-                                <td><input type="text" name="range" /></td>
-                                <td><input type="text" name="duration" /></td>
-                                <td><input type="text" name="description" /></td>
-                            </tr>                                
-                            <tr>
-                                <td><input type="text" name="spell-type" /></td>
-                                <td><input type="text" name="spell-name" /></td>
-                                <td><input type="text" name="cast-time" /></td>
-                                <td><input type="text" name="range" /></td>
-                                <td><input type="text" name="duration" /></td>
-                                <td><input type="text" name="description" /></td>
-                            </tr>
-                            <tr>
-                                <td><input type="text" name="spell-type" /></td>
-                                <td><input type="text" name="spell-name" /></td>
-                                <td><input type="text" name="cast-time" /></td>
-                                <td><input type="text" name="range" /></td>
-                                <td><input type="text" name="duration" /></td>
-                                <td><input type="text" name="description" /></td>
-                            </tr>
-                                
-                            <tr>
-                                <td><input type="text" name="spell-type" /></td>
-                                <td><input type="text" name="spell-name" /></td>
-                                <td><input type="text" name="cast-time" /></td>
-                                <td><input type="text" name="range" /></td>
-                                <td><input type="text" name="duration" /></td>
-                                <td><input type="text" name="description" /></td>
-                               </tr>
-                                
-                            <tr>
-                                <td><input type="text" name="spell-type" /></td>
-                                <td><input type="text" name="spell-name" /></td>
-                                <td><input type="text" name="cast-time" /></td>
-                                <td><input type="text" name="range" /></td>
-                                <td><input type="text" name="duration" /></td>
-                                <td><input type="text" name="description" /></td>
-                            </tr>
-                                
-                            <tr>
-                                <td><input type="text" name="spell-type" /></td>
-                                <td><input type="text" name="spell-name" /></td>
-                                <td><input type="text" name="cast-time" /></td>
-                                <td><input type="text" name="range" /></td>
-                                <td><input type="text" name="duration" /></td>
-                                <td><input type="text" name="description" /></td>
-                            </tr>
-                                
-                            <tr>
-                                <td><input type="text" name="spell-type" /></td>
-                                <td><input type="text" name="spell-name" /></td>
-                                <td><input type="text" name="cast-time" /></td>
-                                <td><input type="text" name="range" /></td>
-                                <td><input type="text" name="duration" /></td>
-                                <td><input type="text" name="description" /></td>
-                            </tr>
-                               
-                            <tr>
-                                <td><input type="text" name="spell-type" /></td>
-                                <td><input type="text" name="spell-name" /></td>
-                                <td><input type="text" name="cast-time" /></td>
-                                <td><input type="text" name="range" /></td>
-                                <td><input type="text" name="duration" /></td>
-                                <td><input type="text" name="description" /></td>
-                            </tr>
-                              
-                            <tr>
-                                <td><input type="text" name="spell-type" /></td>
-                                <td><input type="text" name="spell-name" /></td>
-                                <td><input type="text" name="cast-time" /></td>
-                                <td><input type="text" name="range" /></td>
-                                <td><input type="text" name="duration" /></td>
-                                <td><input type="text" name="description" /></td>
-                            </tr>
-                                
-                            <tr>
-                                <td><input type="text" name="spell-type" /></td>
-                                <td><input type="text" name="spell-name" /></td>
-                                <td><input type="text" name="cast-time" /></td>
-                                <td><input type="text" name="range" /></td>
-                                <td><input type="text" name="duration" /></td>
-                                <td><input type="text" name="description" /></td>
-                            </tr>
-                                
-                            <tr>
-                                <td><input type="text" name="spell-type" /></td>
-                                <td><input type="text" name="spell-name" /></td>
-                                <td><input type="text" name="cast-time" /></td>
-                                <td><input type="text" name="range" /></td>
-                                <td><input type="text" name="duration" /></td>
-                                <td><input type="text" name="description" /></td>
-                            </tr>
-                               
-                            <tr>
-                                <td><input type="text" name="spell-type" /></td>
-                                <td><input type="text" name="spell-name" /></td>
-                                <td><input type="text" name="cast-time" /></td>
-                                <td><input type="text" name="range" /></td>
-                                <td><input type="text" name="duration" /></td>
-                                <td><input type="text" name="description" /></td>
-                            </tr>
-                                
-                            <tr>
-                                <td><input type="text" name="spell-type" /></td>
-                                <td><input type="text" name="spell-name" /></td>
-                                <td><input type="text" name="cast-time" /></td>
-                                <td><input type="text" name="range" /></td>
-                                <td><input type="text" name="duration" /></td>
-                                <td><input type="text" name="description" /></td>
-                            </tr>
-
-                            <tr>
-                                <td><input type="text" name="spell-type" /></td>
-                                <td><input type="text" name="spell-name" /></td>
-                                <td><input type="text" name="cast-time" /></td>
-                                <td><input type="text" name="range" /></td>
-                                <td><input type="text" name="duration" /></td>
-                                <td><input type="text" name="description" /></td>
-                            </tr>
-                            <tr>
-                                <td><input type="text" name="spell-type" /></td>
-                                <td><input type="text" name="spell-name" /></td>
-                                <td><input type="text" name="cast-time" /></td>
-                                <td><input type="text" name="range" /></td>
-                                <td><input type="text" name="duration" /></td>
-                                <td><input type="text" name="description" /></td>
-                            </tr>
-                            <tr>
-                                <td><input type="text" name="spell-type" /></td>
-                                <td><input type="text" name="spell-name" /></td>
-                                <td><input type="text" name="cast-time" /></td>
-                                <td><input type="text" name="range" /></td>
-                                <td><input type="text" name="duration" /></td>
-                                <td><input type="text" name="description" /></td>
-                            </tr>
-
-                            <tr>
-                                <td><input type="text" name="spell-type" /></td>
-                                <td><input type="text" name="spell-name" /></td>
-                                <td><input type="text" name="cast-time" /></td>
-                                <td><input type="text" name="range" /></td>
-                                <td><input type="text" name="duration" /></td>
-                                <td><input type="text" name="description" /></td>
-                            </tr>         
-                            <tr>
-                                <td><input type="text" name="spell-type" /></td>
-                                <td><input type="text" name="spell-name" /></td>
-                                <td><input type="text" name="cast-time" /></td>
-                                <td><input type="text" name="range" /></td>
-                                <td><input type="text" name="duration" /></td>
-                                <td><input type="text" name="description" /></td>
-                            </tr>              
-                            
-                                
-                            <tr>
-                                <td><input type="text" name="spell-type" /></td>
-                                <td><input type="text" name="spell-name" /></td>
-                                <td><input type="text" name="cast-time" /></td>
-                                <td><input type="text" name="range" /></td>
-                                <td><input type="text" name="duration" /></td>
-                                <td><input type="text" name="description" /></td>
-                            </tr>
-                               
-                            <tr>
-                                <td><input type="text" name="spell-type" /></td>
-                                <td><input type="text" name="spell-name" /></td>
-                                <td><input type="text" name="cast-time" /></td>
-                                <td><input type="text" name="range" /></td>
-                                <td><input type="text" name="duration" /></td>
-                                <td><input type="text" name="description" /></td>
-                            </tr>
-                              
-                            <tr>
-                                <td><input type="text" name="spell-type" /></td>
-                                <td><input type="text" name="spell-name" /></td>
-                                <td><input type="text" name="cast-time" /></td>
-                                <td><input type="text" name="range" /></td>
-                                <td><input type="text" name="duration" /></td>
-                                <td><input type="text" name="description" /></td>
-                            </tr>
-                                
-                            <tr>
-                                <td><input type="text" name="spell-type" /></td>
-                                <td><input type="text" name="spell-name" /></td>
-                                <td><input type="text" name="cast-time" /></td>
-                                <td><input type="text" name="range" /></td>
-                                <td><input type="text" name="duration" /></td>
-                                <td><input type="text" name="description" /></td>
-                            </tr>
-                                
-                            <tr>
-                                <td><input type="text" name="spell-type" /></td>
-                                <td><input type="text" name="spell-name" /></td>
-                                <td><input type="text" name="cast-time" /></td>
-                                <td><input type="text" name="range" /></td>
-                                <td><input type="text" name="duration" /></td>
-                                <td><input type="text" name="description" /></td>
-                            </tr>
-                               
-                            <tr>
-                                <td><input type="text" name="spell-type" /></td>
-                                <td><input type="text" name="spell-name" /></td>
-                                <td><input type="text" name="cast-time" /></td>
-                                <td><input type="text" name="range" /></td>
-                                <td><input type="text" name="duration" /></td>
-                                <td><input type="text" name="description" /></td>
-                            </tr>
-                                
-                            <tr>
-                                <td><input type="text" name="spell-type" /></td>
-                                <td><input type="text" name="spell-name" /></td>
-                                <td><input type="text" name="cast-time" /></td>
-                                <td><input type="text" name="range" /></td>
-                                <td><input type="text" name="duration" /></td>
-                                <td><input type="text" name="description" /></td>
-                            </tr>
-
-                            <tr>
-                                <td><input type="text" name="spell-type" /></td>
-                                <td><input type="text" name="spell-name" /></td>
-                                <td><input type="text" name="cast-time" /></td>
-                                <td><input type="text" name="range" /></td>
-                                <td><input type="text" name="duration" /></td>
-                                <td><input type="text" name="description" /></td>
-                            </tr>
-                            <tr>
-                                <td><input type="text" name="spell-type" /></td>
-                                <td><input type="text" name="spell-name" /></td>
-                                <td><input type="text" name="cast-time" /></td>
-                                <td><input type="text" name="range" /></td>
-                                <td><input type="text" name="duration" /></td>
-                                <td><input type="text" name="description" /></td>
-                            </tr>
-                            <tr>
-                                <td><input type="text" name="spell-type" /></td>
-                                <td><input type="text" name="spell-name" /></td>
-                                <td><input type="text" name="cast-time" /></td>
-                                <td><input type="text" name="range" /></td>
-                                <td><input type="text" name="duration" /></td>
-                                <td><input type="text" name="description" /></td>
-                            </tr>
-
-                            <tr>
-                                <td><input type="text" name="spell-type" /></td>
-                                <td><input type="text" name="spell-name" /></td>
-                                <td><input type="text" name="cast-time" /></td>
-                                <td><input type="text" name="range" /></td>
-                                <td><input type="text" name="duration" /></td>
-                                <td><input type="text" name="description" /></td>
-                            </tr>         
-                            <tr>
-                                <td><input type="text" name="spell-type" /></td>
-                                <td><input type="text" name="spell-name" /></td>
-                                <td><input type="text" name="cast-time" /></td>
-                                <td><input type="text" name="range" /></td>
-                                <td><input type="text" name="duration" /></td>
-                                <td><input type="text" name="description" /></td>
-                            </tr>                                    
+                            <!-- rows are added dynamically by changes.js / load.js -->
                         </table>
+                        <button id="add-spell-row" class="w3-button w3-blue-gray w3-round-large w3-margin-top">
+                            + Add Spell / Feature
+                        </button>
                     </div>
                 </div>
             </div>
-        </div>
         <!-- Page 4 -->
         <!-- Page 4 -->
         <!-- Page 4 -->
@@ -1364,15 +802,25 @@
             <div class="w3-col w3-margin-bottom w3-card w3-round">
                 <button class="expando w3-button w3-bar-block w3-left-align w3-blue-gray">Backstory</button>
                 <div id="character-background" class="w3-padding w3-animate-opacity">
-                    <div id="backstory" class="w3-col w3-padding m6 l6">
+                    <div id="backstory" class="w3-col w3-padding m12 l6">
                         <span class="label">Character Backstory</span>
-                        <textarea name="backstory" rows="30"></textarea>
+                        <textarea name="backstory" rows="10"></textarea>
                     </div>
-                    <div id="apperance" class="w3-col w3-padding m6 l6">
-                        <span class="label">Character Apperance</span>
-                        <div id="char-img" class="w3-card w3-round"></div>
+                    <div id="proficiencies" class="w3-col w3-padding m12 l6">
+                        <div id="weapons-armor" class="w3-col w3-padding m12 l12" style="padding-bottom:0">
+                            <span class="label">Weapons &amp; Armor</span>
+                            <textarea name="weapons-armor" rows="3"></textarea>
+                        </div>
+                        <div id="tools" class="w3-col w3-padding m12 l12" style="padding-bottom:0">
+                            <span class="label">Tools</span>
+                            <textarea name="tools" rows="3"></textarea>
+                        </div>
+                        <div id="languages" class="w3-col w3-padding m12 l12" style="padding-bottom:0">
+                            <span class="label">Known Languages</span>
+                            <textarea name="languages" rows="3"></textarea>
+                        </div>
                     </div>
-                    <div id="allies-organizations" class="w3-col w3-padding w3-center w3-round w3-border m6 l6">
+                    <div id="allies-organizations" class="w3-col w3-padding w3-center w3-round w3-border m12 l12" style="box-sizing:border-box">
                         <div id="name" class="w3-col w3-padding l6">
                             <input type="text" name="name" />
                             <span class="label">Organization or Guild</span>
@@ -1406,8 +854,93 @@
                 </div>
             </div>
         </div>
+        <!-- Page 6 -->
+        <!-- Page 6 -->
+        <!-- Page 6 -->
+        <div id="page-6" class="page w3-container w3-content w3-margin-top" style="display:none">
+            <!-- Attacks -->
+            <div class="w3-col w3-margin-bottom w3-card w3-round">
+                <button class="expando w3-button w3-bar-block w3-left-align w3-blue-gray">Attacks</button>
+                <div id="attacks-spells" class="w3-padding w3-animate-opacity">
+                    <table id="attacks">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Name</th>
+                                <th>Base Stat</th>
+                                <th>Bonus/DC</th>
+                                <th>Damage</th>
+                                <th>Damage Type</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                    <div id="add-attack">
+                        <span class="label title">Add a new attack:</span>
+                        <div id="attack-form">
+                            <div id="att-name" class="w3-rest w3-padding w3-card">
+                                <input type="text" name="name" />
+                                <span class="label">Name of the attack</span>
+                            </div>
+                            <div id="attack-stack" class="w3-rest w3-padding w3-card">
+                                <select name="stat">
+                                    <option value="str">Strength</option>
+                                    <option value="dex">Dexterity</option>
+                                    <option value="con">Constitution</option>
+                                    <option value="int">Intelligence</option>
+                                    <option value="wis">Wisdom</option>
+                                    <option value="cha">Charisma</option>
+                                </select>
+                                <span class="label">Choose the base Stat</span>
+                            </div>
+                            <div id="attack-type" class="w3-rest w3-padding w3-card">
+                                <select name="type">
+                                    <option value="toHit">Roll to hit</option>
+                                    <option value="save">Save DC</option>
+                                </select>
+                                <span class="label">Choose the type of attack</span>
+                            </div>
+                            <div id="attack-prof" class="w3-rest w3-padding w3-card">
+                                <input type="checkbox" name="proficiency">
+                                <span class="sub-label">Add Proficiency</span>
+                            </div>
+                            <div id="attack-dc" class="w3-rest w3-padding w3-card" style="display: none;">
+                                <input type="text" name="dc" />
+                                <input type="checkbox" name="spell-dc" />
+                                <span class="sub-label">Use Spell DC?</span>
+                                <span class="label">Set DC</span>
+                            </div>
+                            <div id="attack-dice" class="w3-rest w3-padding w3-card">
+                                <input type="text" name="dice" />
+                                <span class="label">Enter Dice</span>
+                            </div>
+                            <div id="attack-bonus" class="w3-rest w3-padding w3-card">
+                                <input type="text" name="bonus" />
+                                <span class="label">Bonus</span>
+                            </div>
+                            <div id="attack-dmg-type" class="w3-rest w3-padding w3-card">
+                                <input type="text" name="dmg-type">
+                                <span class="label">Damage Type</span>
+                            </div>
+                            <button class="button w3-button w3-blue-gray w3-round-large" onclick="att_attack()">Add Attack</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Charges, Ammo, Resources -->
+            <div id="charges-ammo" class="w3-col w3-card w3-round w3-margin-bottom">
+                <button class="expando w3-button w3-bar-block w3-left-align w3-blue-gray">Class Resources, Ammo, &amp; Charges</button>
+                <div id="charges" class="w3-padding w3-animate-opacity">
+                    <div id="charge-list">
+                        <!-- rows added dynamically by changes.js / load.js -->
+                    </div>
+                    <button id="add-charge-row" class="w3-button w3-blue-gray w3-round w3-margin-top">+ Add Resource</button>
+                </div>
+            </div>
+        </div>
 
-        
+
         <!-- Footer -->
         <!-- Footer -->
         <!-- Footer -->

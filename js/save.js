@@ -1,6 +1,31 @@
+// Build saves object from DOM — SKILL_CONFIG is defined in changes.js
+function buildSavesSaveData() {
+    const saves = {};
+    ['str', 'dex', 'con', 'int', 'wis', 'cha'].forEach(function (stat) {
+        saves[stat + '_save'] = {
+            val:  $('#saves input[name="' + stat + '-save"]').val(),
+            prof: $('#saves #' + stat + '-save input[name="prof"]').prop('checked')
+        };
+    });
+    return saves;
+}
+
+// Build skills object from DOM — keyed by SKILL_CONFIG.saveKey
+function buildSkillsSaveData() {
+    const skills = {};
+    SKILL_CONFIG.forEach(function (skill) {
+        skills[skill.saveKey] = {
+            val:  $('input[name="' + skill.id + '"]').val(),
+            prof: $('#' + skill.id + ' input[name="prof"]').prop('checked'),
+            expr: $('#' + skill.id + ' input[name="expr"]').prop('checked')
+        };
+    });
+    return skills;
+}
+
 function getAttacks() {
     var attacks = [];
-    $('#page-1 #attacks-spells #attacks tr').each(function(argument) {
+    $('#attacks-spells #attacks tr').each(function(argument) {
         if ($(this).find('th').length == 0) {
             var temp = {}
             temp.name = $(this).find('input[name="name"]').val();
@@ -15,40 +40,31 @@ function getAttacks() {
     return attacks;
 }
 
-function getCharges(charge) {
-    var charges = [];
-    $('#page-1 #charges #charge-' + charge + ' input[type="checkbox"]').each(function() {
-        if ($(this).prop('checked') == true) {
-            charges.push($(this).prop('name'));
-        }
+function getChargeRows() {
+    const rows = [];
+    $('#charge-list .charge-row').each(function () {
+        const checked = [];
+        $(this).find('input[type="checkbox"]').each(function () {
+            checked.push($(this).prop('checked'));
+        });
+        rows.push({
+            name: $(this).find('input[name="charge-name"]').val(),
+            checked: checked
+        });
     });
-    return charges;
+    return rows;
 }
 
-function getEquipment(argument) {
-    var equ = {
-        col_1: [],
-        col_2: []
-    }
-    $('#page-2 #equipment .col-1 tr:not(#total)').each(function(argument) {
-        if ($(this).find('th').length == 0) {
-            var temp = {};
-            temp.name = $(this).find('input[name="name"]').val();
-            temp.weight = $(this).find('input[name="weight"]').val();
-            equ.col_1.push(temp);
-        }
+function getEquipment() {
+    const items = [];
+    $('#equipment-list tr').each(function () {
+        items.push({
+            name:   $(this).find('input[name="name"]').val(),
+            weight: $(this).find('input[name="weight"]').val()
+        });
     });
-
-    $('#page-2 #equipment .col-2 tr:not(#total)').each(function(argument) {
-        if ($(this).find('th').length == 0) {
-            var temp = {};
-            temp.name = $(this).find('input[name="name"]').val();
-            temp.weight = $(this).find('input[name="weight"]').val();
-            equ.col_2.push(temp);
-        }
-    });
-
-    return equ;
+    // Keep col_1/col_2 structure so old sheets can still be read back
+    return { col_1: items, col_2: [] };
 }
 
 
@@ -81,12 +97,12 @@ async function saveSheet(argument) {
                 level_two: $('#character-basic-info #basic-info input[name="level-two"]').val(),
             },
             character_info: {
-                race_class: $('#character-basic-info #character-info input[name="race-class"]').val(),
-                background: $('#character-basic-info #character-info input[name="background"]').val(),
-                player_name: $('#character-basic-info #character-info input[name="player-name"]').val(),
-                exp: $('#character-basic-info #character-info input[name="exp"]').val(),
-                alignment: $('#character-basic-info #character-info input[name="alignment"]').val(),
-                deity: $('#character-basic-info #character-info input[name="deity"]').val()
+                race_class: $('input[name="race-class"]').val(),
+                background: $('input[name="background"]').val(),
+                player_name: '',
+                exp: $('input[name="exp"]').val(),
+                alignment: $('input[name="alignment"]').val(),
+                deity: $('input[name="deity"]').val()
             },
             top_bar: {
                 proficiency: $('#page-1 #top-bar input[name="proficiency"]').val(),
@@ -113,180 +129,39 @@ async function saveSheet(argument) {
             },
             saves_skills: {
                 spell_casting: $('#page-1 #saves-skills select[name="spell-att"]').val(),
-                saves: {
-                    str_save: {
-                        val: $('#page-1 #saves-skills #saves input[name="str-save"]').val(),
-                        prof: $('#page-1 #saves-skills #saves #str-save input[name="prof"]').prop("checked")
-                    },
-                    dex_save: {
-                        val: $('#page-1 #saves-skills #saves input[name="dex-save"]').val(),
-                        prof: $('#page-1 #saves-skills #saves #dex-save input[name="prof"]').prop("checked")
-                    },
-                    con_save: {
-                        val: $('#page-1 #saves-skills #saves input[name="con-save"]').val(),
-                        prof: $('#page-1 #saves-skills #saves #con-save input[name="prof"]').prop("checked")
-                    },
-                    int_save: {
-                        val: $('#page-1 #saves-skills #saves input[name="int-save"]').val(),
-                        prof: $('#page-1 #saves-skills #saves #int-save input[name="prof"]').prop("checked")
-                    },
-                    wis_save: {
-                        val: $('#page-1 #saves-skills #saves input[name="wis-save"]').val(),
-                        prof: $('#page-1 #saves-skills #saves #wis-save input[name="prof"]').prop("checked")
-                    },
-                    cha_save: {
-                        val: $('#page-1 #saves-skills #saves input[name="cha-save"]').val(),
-                        prof: $('#page-1 #saves-skills #saves #cha-save input[name="prof"]').prop("checked")
-                    },
-                },
-                skills: {
-                    acrobatics: {
-                        val: $('#page-1 #saves-skills #skills input[name="acrobatics-skill"]').val(),
-                        prof: $('#page-1 #saves-skills #skills #acrobatics-skill input[name="prof"]').prop("checked"),
-                        expr: $('#page-1 #saves-skills #skills #acrobatics-skill input[name="expr"]').prop("checked")
-                    },
-                    animal_handling: {
-                        val: $('#page-1 #saves-skills #skills input[name="animal-handling-skill"]').val(),
-                        prof: $('#page-1 #saves-skills #skills #animal-handling-skill input[name="prof"]').prop("checked"),
-                        expr: $('#page-1 #saves-skills #skills #animal-handling-skill input[name="expr"]').prop("checked")
-                    },
-                    arcana: {
-                        val: $('#page-1 #saves-skills #skills input[name="arcana-skill"]').val(),
-                        prof: $('#page-1 #saves-skills #skills #arcana-skill input[name="prof"]').prop("checked"),
-                        expr: $('#page-1 #saves-skills #skills #arcana-skill input[name="expr"]').prop("checked")
-                    },
-                    athletics: {
-                        val: $('#page-1 #saves-skills #skills input[name="athletics-skill"]').val(),
-                        prof: $('#page-1 #saves-skills #skills #athletics-skill input[name="prof"]').prop("checked"),
-                        expr: $('#page-1 #saves-skills #skills #athletics-skill input[name="expr"]').prop("checked")
-                    },
-                    deception: {
-                        val: $('#page-1 #saves-skills #skills input[name="deception-skill"]').val(),
-                        prof: $('#page-1 #saves-skills #skills #deception-skill input[name="prof"]').prop("checked"),
-                        expr: $('#page-1 #saves-skills #skills #deception-skill input[name="expr"]').prop("checked")
-                    },
-                    history: {
-                        val: $('#page-1 #saves-skills #skills input[name="history-skill"]').val(),
-                        prof: $('#page-1 #saves-skills #skills #history-skill input[name="prof"]').prop("checked"),
-                        expr: $('#page-1 #saves-skills #skills #history-skill input[name="expr"]').prop("checked")
-                    },
-                    insight: {
-                        val: $('#page-1 #saves-skills #skills input[name="insight-skill"]').val(),
-                        prof: $('#page-1 #saves-skills #skills #insight-skill input[name="prof"]').prop("checked"),
-                        expr: $('#page-1 #saves-skills #skills #insight-skill input[name="expr"]').prop("checked")
-                    },
-                    intimidation: {
-                        val: $('#page-1 #saves-skills #skills input[name="intimidation-skill"]').val(),
-                        prof: $('#page-1 #saves-skills #skills #intimidation-skill input[name="prof"]').prop("checked"),
-                        expr: $('#page-1 #saves-skills #skills #intimidation-skill input[name="expr"]').prop("checked")
-                    },
-                    investigation: {
-                        val: $('#page-1 #saves-skills #skills input[name="investigation-skill"]').val(),
-                        prof: $('#page-1 #saves-skills #skills #investigation-skill input[name="prof"]').prop("checked"),
-                        expr: $('#page-1 #saves-skills #skills #investigation-skill input[name="expr"]').prop("checked")
-                    },
-                    medicine: {
-                        val: $('#page-1 #saves-skills #skills input[name="medicine-skill"]').val(),
-                        prof: $('#page-1 #saves-skills #skills #medicine-skill input[name="prof"]').prop("checked"),
-                        expr: $('#page-1 #saves-skills #skills #medicine-skill input[name="expr"]').prop("checked")
-                    },
-                    nature: {
-                        val: $('#page-1 #saves-skills #skills input[name="nature-skill"]').val(),
-                        prof: $('#page-1 #saves-skills #skills #nature-skill input[name="prof"]').prop("checked"),
-                        expr: $('#page-1 #saves-skills #skills #nature-skill input[name="expr"]').prop("checked")
-                    },
-                    perception: {
-                        val: $('#page-1 #saves-skills #skills input[name="perception-skill"]').val(),
-                        prof: $('#page-1 #saves-skills #skills #perception-skill input[name="prof"]').prop("checked"),
-                        expr: $('#page-1 #saves-skills #skills #perception-skill input[name="expr"]').prop("checked")
-                    },
-                    performance: {
-                        val: $('#page-1 #saves-skills #skills input[name="performance-skill"]').val(),
-                        prof: $('#page-1 #saves-skills #skills #performance-skill input[name="prof"]').prop("checked"),
-                        expr: $('#page-1 #saves-skills #skills #performance-skill input[name="expr"]').prop("checked")
-                    },
-                    persuasion: {
-                        val: $('#page-1 #saves-skills #skills input[name="persuasion-skill"]').val(),
-                        prof: $('#page-1 #saves-skills #skills #persuasion-skill input[name="prof"]').prop("checked"),
-                        expr: $('#page-1 #saves-skills #skills #persuasion-skill input[name="expr"]').prop("checked")
-                    },
-                    religion: {
-                        val: $('#page-1 #saves-skills #skills input[name="religion-skill"]').val(),
-                        prof: $('#page-1 #saves-skills #skills #religion-skill input[name="prof"]').prop("checked"),
-                        expr: $('#page-1 #saves-skills #skills #religion-skill input[name="expr"]').prop("checked")
-                    },
-                    sleight_hand: {
-                        val: $('#page-1 #saves-skills #skills input[name="sleight-hand-skill"]').val(),
-                        prof: $('#page-1 #saves-skills #skills #sleight-hand-skill input[name="prof"]').prop("checked"),
-                        expr: $('#page-1 #saves-skills #skills #sleight-hand-skill input[name="expr"]').prop("checked")
-                    },
-                    stealth: {
-                        val: $('#page-1 #saves-skills #skills input[name="stealth-skill"]').val(),
-                        prof: $('#page-1 #saves-skills #skills #stealth-skill input[name="prof"]').prop("checked"),
-                        expr: $('#page-1 #saves-skills #skills #stealth-skill input[name="expr"]').prop("checked")
-                    },
-                    survival: {
-                        val: $('#page-1 #saves-skills #skills input[name="survival-skill"]').val(),
-                        prof: $('#page-1 #saves-skills #skills #survival-skill input[name="prof"]').prop("checked"),
-                        expr: $('#page-1 #saves-skills #skills #survival-skill input[name="expr"]').prop("checked")
-                    }
-                }
+                saves:  buildSavesSaveData(),
+                skills: buildSkillsSaveData()
             },
             status: {
-                conditions: $('#page-1 #status #conditions textarea[name="conditions"]').val(),
-                boons: $('#page-1 #status #boons textarea[name="boons"]').val(),
+                conditions: $('textarea[name="conditions"]').val(),
+                boons: $('textarea[name="boons"]').val(),
                 death_saves: {
                     success: {
-                        one: $('#page-1 #status #death-saves input[name="success-1"]').prop("checked"),
-                        two: $('#page-1 #status #death-saves input[name="success-2"]').prop("checked"),
-                        three: $('#page-1 #status #death-saves input[name="success-3"]').prop("checked")
+                        one:   $('input[name="success-1"]').prop("checked"),
+                        two:   $('input[name="success-2"]').prop("checked"),
+                        three: $('input[name="success-3"]').prop("checked")
                     },
                     failure: {
-                        one: $('#page-1 #status #death-saves input[name="failure-1"]').prop("checked"),
-                        two: $('#page-1 #status #death-saves input[name="failure-2"]').prop("checked"),
-                        three: $('#page-1 #status #death-saves input[name="failure-3"]').prop("checked")
+                        one:   $('input[name="failure-1"]').prop("checked"),
+                        two:   $('input[name="failure-2"]').prop("checked"),
+                        three: $('input[name="failure-3"]').prop("checked")
                     }
                 },
                 hit_dice: {
-                    type: $('#page-1 #status #hit-dice input[name="hit-dice"]').val(),
-                    current_hd: $('#page-1 #status #hit-dice input[name="current-hd"]').val()
+                    type: $('input[name="hit-dice"]').val(),
+                    current_hd: $('input[name="current-hd"]').val()
                 },
-                temp_health: $('#page-1 #status #hit-points input[name="temp-health"]').val(),
-                current_health: $('#page-1 #status #hit-points input[name="current-health"]').val(),
-                max_health: $('#page-1 #status #hit-points input[name="max-health"]').val()
+                temp_health: $('input[name="temp-health"]').val(),
+                current_health: $('input[name="current-health"]').val(),
+                max_health: $('input[name="max-health"]').val()
             },
             proficiencies: {
-                weapon_armor: $('#page-1 #proficiencies #weapons-armor textarea[name="weapons-armor"]').val(),
-                tools: $('#page-1 #proficiencies #tools textarea[name="tools"]').val(),
-                languages: $('#page-1 #proficiencies #languages textarea[name="languages"]').val()
+                weapon_armor: $('#weapons-armor textarea[name="weapons-armor"]').val(),
+                tools: $('#tools textarea[name="tools"]').val(),
+                languages: $('#languages textarea[name="languages"]').val()
             },
             attacks_spells: getAttacks(),
-            charges: {
-                charge_1: {
-                    name: $('#page-1 #charges input[name="charge-1"]').val(),
-                    total: getCharges(1)
-                },
-                charge_2: {
-                    name: $('#page-1 #charges input[name="charge-2"]').val(),
-                    total: getCharges(2)
-                },
-                charge_3: {
-                    name: $('#page-1 #charges input[name="charge-3"]').val(),
-                    total: getCharges(3)
-                },
-                charge_4: {
-                    name: $('#page-1 #charges input[name="charge-4"]').val(),
-                    total: getCharges(4)
-                },
-                charge_5: {
-                    name: $('#page-1 #charges input[name="charge-5"]').val(),
-                    total: getCharges(5)
-                },
-                charge_6: {
-                    name: $('#page-1 #charges input[name="charge-6"]').val(),
-                    total: getCharges(6)
-                }
-            },
+            charges: getChargeRows(),
             features: $('#page-1 #features textarea[name="features"]').val()
         },
         page2: {
@@ -370,9 +245,10 @@ page3: {
     const charName = sheet.page1.basic_info.char_name || "character";
     const suggested = `${charName.replace(/\s+/g, "_")}.json`;
 
-    // Open a real Save dialog
+    // Open a real Save dialog (startIn defaults to Documents folder)
     const handle = await window.showSaveFilePicker({
         suggestedName: suggested,
+        startIn: 'documents',
         types: [{
             description: "Character Sheet",
             accept: { "application/json": [".json"] }
@@ -383,4 +259,6 @@ page3: {
     const writable = await handle.createWritable();
     await writable.write(saveString);
     await writable.close();
+
+    markClean(); // sheet is now saved — clear the unsaved-changes flag
 }
