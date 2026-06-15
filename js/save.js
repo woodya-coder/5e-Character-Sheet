@@ -245,15 +245,17 @@ page3: {
     const charName = sheet.page1.basic_info.char_name || "character";
     const suggested = `${charName.replace(/\s+/g, "_")}.json`;
 
-    // Open a real Save dialog (startIn defaults to Documents folder)
+    // Open a real Save dialog — re-opens in the last-used folder after first use
     const handle = await window.showSaveFilePicker({
         suggestedName: suggested,
-        startIn: 'documents',
+        startIn: _lastFileHandle || 'documents',
         types: [{
             description: "Character Sheet",
             accept: { "application/json": [".json"] }
         }]
     });
+
+    saveLastHandle(handle); // remember folder for next time
 
     // Write the file
     const writable = await handle.createWritable();

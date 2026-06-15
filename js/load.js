@@ -1,13 +1,14 @@
-// Open file dialog using File System Access API (supports startIn folder)
+// Open file dialog using File System Access API — re-opens in last-used folder
 async function loadSheet() {
     try {
         const [handle] = await window.showOpenFilePicker({
-            startIn: 'documents',
+            startIn: _lastFileHandle || 'documents',
             types: [{
                 description: 'Character Sheet',
                 accept: { 'application/json': ['.json'] }
             }]
         });
+        saveLastHandle(handle); // remember folder for next time
         const file = await handle.getFile();
         const text = await file.text();
         const jsonText = text.trim().replace(/^var\s+loadJson\s*=\s*/, '');
