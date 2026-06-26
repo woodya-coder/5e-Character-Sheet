@@ -42,6 +42,17 @@
         <a href="#" class="w3-bar-item w3-button w3-hover-blue-gray" onclick="loadSheet()">Load Sheet</a>
         <a href="#" class="w3-bar-item w3-button w3-hover-blue-gray" onclick="saveSheet()">Save Sheet</a>
         <a href="#" class="w3-bar-item w3-button w3-hover-blue-gray" onclick="lock()">Lock/Unlock</a>
+        <div class="w3-border-top w3-margin-top dice-section">
+            <span class="dice-section-label">Quick Dice</span>
+            <div class="dice-grid">
+                <button class="quick-dice-btn" data-die="4">d4</button>
+                <button class="quick-dice-btn" data-die="6">d6</button>
+                <button class="quick-dice-btn" data-die="8">d8</button>
+                <button class="quick-dice-btn" data-die="10">d10</button>
+                <button class="quick-dice-btn" data-die="12">d12</button>
+                <button class="quick-dice-btn" data-die="20">d20</button>
+            </div>
+        </div>
         <div class="info w3-margin-top w3-border-top">
             <div class="label">Info &amp; Help</div>
         </div>
@@ -954,7 +965,16 @@
     </div>
 
     <input type="file" id="loadFile" accept=".json" style="display:none">
+
+    <!-- Roll result toast -->
+    <div id="roll-toast">
+        <div class="roll-toast-label"></div>
+        <div class="roll-toast-result"></div>
+        <div class="roll-toast-crit"></div>
+    </div>
+
     <script type="text/javascript" src="js/load.js"></script>
+    <script type="text/javascript" src="js/dice.js"></script>
 
 </body>
 

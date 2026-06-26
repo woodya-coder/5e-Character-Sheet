@@ -925,3 +925,93 @@ button.expando {
     color: #fff;
     background-color: #7f8c8d
 }
+
+/* ---- Dice roller ---- */
+
+/* Clickable save / skill labels */
+#saves .box .sub-label,
+.skills-group .box .sub-label {
+    cursor: pointer;
+    display: inline-block;
+}
+#saves .box .sub-label:hover,
+.skills-group .box .sub-label:hover {
+    color: #1565c0;
+    text-decoration: underline;
+}
+
+/* Roll-result toast */
+#roll-toast {
+    position: fixed;
+    bottom: 80px;
+    right: 24px;
+    min-width: 180px;
+    background: #37474f;
+    color: #fff;
+    border-radius: 10px;
+    padding: 12px 20px;
+    box-shadow: 0 6px 24px rgba(0,0,0,.35);
+    text-align: center;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity .25s ease, transform .25s ease;
+}
+#roll-toast.roll-toast-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+.roll-toast-label {
+    font-size: .8em;
+    opacity: .75;
+    margin-bottom: 4px;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+}
+.roll-toast-result {
+    font-size: 1.6em;
+    font-weight: bold;
+    letter-spacing: .02em;
+}
+.roll-die-val  { color: #80deea; }
+.roll-op       { opacity: .75; font-size: .8em; }
+.roll-eq       { opacity: .75; font-size: .8em; }
+.roll-total    { color: #fff; }
+.roll-toast-crit { margin-top: 4px; font-size: .9em; min-height: 1.2em; }
+.roll-crit-good  { color: #ffd54f; }
+.roll-crit-bad   { color: #ff8a65; }
+
+/* Sidebar quick-dice buttons */
+.dice-section {
+    padding: 6px 8px 8px;
+}
+.dice-section .dice-section-label {
+    font-size: .78em;
+    font-weight: bold;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    opacity: .7;
+    margin-bottom: 4px;
+    display: block;
+}
+.dice-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+.quick-dice-btn {
+    flex: 1 1 calc(50% - 4px);
+    padding: 5px 0;
+    font-size: .82em;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background: #546e7a;
+    color: #fff;
+    transition: background .15s;
+}
+.quick-dice-btn:hover {
+    background: #455a64;
+}
