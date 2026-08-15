@@ -1,7 +1,11 @@
 {
   "permissions": {
     "allow": [
-      "Bash(python3 -c ' *)"
+      "Bash(python3 -c ' *)",
+      "Bash(ls -la 'C:\\\\Users\\\\woody\\\\.claude\\\\projects\\\\' 2>&1)",
+      "Read(//c/Users/woody/.claude/projects/**)",
+      "Bash(ls -la 'C:\\\\Users\\\\woody\\\\.claude\\\\projects\\\\' | grep -i \"5e\" )",
+      "Bash(grep -n \"/\\\\* Page 2 \\\\*/\" css/app.css)"
     ]
   }
 }

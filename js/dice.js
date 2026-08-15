@@ -13,10 +13,16 @@ function parseMod(str) {
 
 var _rollHideTimer = null;
 
-function showRollResult(label, die, dieResult, mod) {
+function showRollResult(label, die, dieResult, mod, lastRollText) {
     var total    = dieResult + (mod || 0);
     var isCrit   = die === 20 && dieResult === 20;
     var isFumble = die === 20 && dieResult === 1;
+
+    if (!lastRollText) {
+        lastRollText = label + ': ' + dieResult +
+            (mod ? ' ' + (mod >= 0 ? '+' : '−') + ' ' + Math.abs(mod) + ' = ' + total : '');
+    }
+    $('#last-roll-display').text(lastRollText);
 
     var toast  = document.getElementById('roll-toast');
     var elLabel  = toast.querySelector('.roll-toast-label');
@@ -61,9 +67,24 @@ $(document).ready(function () {
 
     // Sidebar quick-dice buttons
     $(document).on('click', '.quick-dice-btn', function () {
-        var die    = parseInt($(this).data('die'));
-        var result = rollDie(die);
-        showRollResult('d' + die + ' Roll', die, result, 0);
+        var die = parseInt($(this).data('die'));
+
+        var countInput = $('#dice-count');
+        var count = parseInt(countInput.val()) || 1;
+        if (count < 1) count = 1;
+
+        var rolls = [];
+        for (var i = 0; i < count; i++) {
+            rolls.push(rollDie(die));
+        }
+        var total = rolls.reduce(function (sum, r) { return sum + r; }, 0);
+
+        var label   = (count > 1 ? count + 'd' + die : 'd' + die) + ' Roll';
+        var summary = (count > 1 ? count + 'd' + die : 'd' + die) + ': ' + rolls.join(' + ') +
+            (count > 1 ? ' = ' + total : '');
+        showRollResult(label, count === 1 ? die : -1, total, 0, summary);
+
+        countInput.val(1);
     });
 
     // Saving throw labels → d20 + save modifier
@@ -76,6 +97,13 @@ $(document).ready(function () {
     // Skill labels → d20 + skill modifier
     $('#saves-skills').on('click', '.skills-group .box .sub-label', function () {
         var mod   = parseMod($(this).closest('.box').find('input[type="text"]').val());
+        var label = $(this).text() + ' Check';
+        showRollResult(label, 20, rollDie(20), mod);
+    });
+
+    // Attribute labels → d20 + attribute modifier
+    $('#attributes').on('click', '.label', function () {
+        var mod   = parseMod($(this).closest('.w3-col').find('.att-mod').val());
         var label = $(this).text() + ' Check';
         showRollResult(label, 20, rollDie(20), mod);
     });

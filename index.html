@@ -13,7 +13,6 @@
     <script type="text/javascript" src="sheet/savedSheet.json"></script>
     <script type="text/javascript" src="js/extra.js"></script>
     <script type="text/javascript" src="js/changes.js"></script>
-    <script type="text/javascript" src="js/add-attack.js"></script>
     <script type="text/javascript" src="js/prefs.js"></script>
     <script type="text/javascript" src="js/save.js"></script>
 
@@ -30,11 +29,11 @@
 	page-3: Spells & Feats
 	page-4: Backstory
 	page-5: Notes
-	page-6: Attacks & Resources
+	page-6: Resources
 -->
     <div class="w3-sidebar w3-bar-block w3-border-right w3-flat-clouds" id="mySidebar">
         <a href="#" class="w3-bar-item w3-button w3-hover-blue-gray" onclick="openPage('page-1')">Attributes</a>
-        <a href="#" class="w3-bar-item w3-button w3-hover-blue-gray" onclick="openPage('page-6')">Attacks &amp; Resources</a>
+        <a href="#" class="w3-bar-item w3-button w3-hover-blue-gray" onclick="openPage('page-6')">Resources</a>
         <a href="#" class="w3-bar-item w3-button w3-hover-blue-gray" onclick="openPage('page-3')">Spells &amp; Feats</a>
         <a href="#" class="w3-bar-item w3-button w3-hover-blue-gray" onclick="openPage('page-2')">Inv. &amp; NPCs</a>
         <a href="#" class="w3-bar-item w3-button w3-hover-blue-gray" onclick="openPage('page-4')">Backstory</a>
@@ -44,6 +43,10 @@
         <a href="#" class="w3-bar-item w3-button w3-hover-blue-gray" onclick="lock()">Lock/Unlock</a>
         <div class="w3-border-top w3-margin-top dice-section">
             <span class="dice-section-label">Quick Dice</span>
+            <div class="dice-count-row">
+                <label for="dice-count" class="dice-count-label">#</label>
+                <input type="text" id="dice-count" class="dice-count-input" value="1" maxlength="3" />
+            </div>
             <div class="dice-grid">
                 <button class="quick-dice-btn" data-die="4">d4</button>
                 <button class="quick-dice-btn" data-die="6">d6</button>
@@ -51,6 +54,10 @@
                 <button class="quick-dice-btn" data-die="10">d10</button>
                 <button class="quick-dice-btn" data-die="12">d12</button>
                 <button class="quick-dice-btn" data-die="20">d20</button>
+            </div>
+            <div class="last-roll-row">
+                <span class="dice-section-label">Last Roll</span>
+                <div id="last-roll-display" class="last-roll-display">—</div>
             </div>
         </div>
         <div class="info w3-margin-top w3-border-top">
@@ -634,50 +641,69 @@
         <!-- Page 3 -->
         <!-- Page 3 -->
         <div id="page-3" class="page w3-container w3-content w3-margin-top" style="display:none">
-            <!-- Spell Info -->
+            <!-- Attacks -->
             <div class="w3-col w3-margin-bottom w3-card w3-round">
-                <button class="expando w3-button w3-bar-block w3-left-align w3-blue-gray">Spell Info</button>
-                <div id="spell-info" class="w3-padding w3-animate-opacity">
-                    <div id="class" class="w3-col w3-padding m6 l3">
-                        <div class="input-frame">
-                            <input type="text" name="class" />
-                        </div>
-                        <div class="label-frame">
-                            <span class="label">Spellcasting Class</span>
-                        </div>
-                    </div>
-                    <div id="att" class="w3-col w3-padding m3 l3">
-                        <div class="input-frame">
-                            <input class="auto-filled-border" type="text" name="att" maxlength="5" size="3" />
-                        </div>
-                        <div class="label-frame">
-                            <span class="label">Spell Casting Attribute</span>
-                        </div>
-                    </div>
-                    <div id="dc" class="w3-col w3-padding m3 l3">
-                        <div class="input-frame">
-                            <input class="auto-filled-border" type="text" name="dc" maxlength="2" size="2" />
-                        </div>
-                        <div class="label-frame">
-                            <span class="label">Spell Save DC</span>
-                        </div>
-                    </div>
-                    <div id="bonus" class="w3-col w3-padding m3 l3">
-                        <div class="input-frame">
-                            <input class="auto-filled-border" type="text" name="bonus" maxlength="2" size="2" />
-                        </div>
-                        <div class="label-frame">
-                            <span class="label">Spell Attack Bonus</span>
-                        </div>
-                    </div>
+                <button class="expando w3-button w3-bar-block w3-left-align w3-blue-gray">Attacks</button>
+                <div id="attacks-spells" class="w3-padding w3-animate-opacity">
+                    <table id="attacks">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Name</th>
+                                <th>Base Stat</th>
+                                <th>Bonus/DC</th>
+                                <th>Damage</th>
+                                <th>Damage Type</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                    <button id="add-attack-row" class="w3-button w3-blue-gray w3-round-large w3-margin-top">
+                        + Add Attack
+                    </button>
                 </div>
             </div>
-
             <!-- Spells -->
             <div class="w3-col w3-margin-bottom w3-card w3-round">
                 <button class="expando w3-button w3-bar-block w3-left-align w3-blue-gray">Spells</button>
                 <div id="spells" class="w3-padding w3-animate-opacity">
-                    
+                    <!-- Spell Info -->
+                    <div id="spell-info">
+                        <div id="class" class="w3-col w3-padding m6 l3">
+                            <div class="label-frame">
+                                <span class="label">Spellcasting Class</span>
+                            </div>
+                            <div class="input-frame">
+                                <input type="text" name="class" />
+                            </div>
+                        </div>
+                        <div id="att" class="w3-col w3-padding m3 l3">
+                            <div class="label-frame">
+                                <span class="label">Base Stat</span>
+                            </div>
+                            <div class="input-frame">
+                                <input class="auto-filled-border" type="text" name="att" maxlength="5" size="3" />
+                            </div>
+                        </div>
+                        <div id="dc" class="w3-col w3-padding m3 l3">
+                            <div class="label-frame">
+                                <span class="label">Spell Save DC</span>
+                            </div>
+                            <div class="input-frame">
+                                <input class="auto-filled-border" type="text" name="dc" maxlength="2" size="2" />
+                            </div>
+                        </div>
+                        <div id="bonus" class="w3-col w3-padding m3 l3">
+                            <div class="label-frame">
+                                <span class="label">Spell Attack Bonus</span>
+                            </div>
+                            <div class="input-frame">
+                                <input class="auto-filled-border" type="text" name="bonus" maxlength="2" size="2" />
+                            </div>
+                        </div>
+                    </div>
+
                     <table class="spell-table">
                         <tr>
                             <th style="width: 20%">1st Level</th>
@@ -870,76 +896,6 @@
         <!-- Page 6 -->
         <!-- Page 6 -->
         <div id="page-6" class="page w3-container w3-content w3-margin-top" style="display:none">
-            <!-- Attacks -->
-            <div class="w3-col w3-margin-bottom w3-card w3-round">
-                <button class="expando w3-button w3-bar-block w3-left-align w3-blue-gray">Attacks</button>
-                <div id="attacks-spells" class="w3-padding w3-animate-opacity">
-                    <table id="attacks">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>Name</th>
-                                <th>Base Stat</th>
-                                <th>Bonus/DC</th>
-                                <th>Damage</th>
-                                <th>Damage Type</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                    <div id="add-attack">
-                        <span class="label title">Add a new attack:</span>
-                        <div id="attack-form">
-                            <div id="att-name" class="w3-rest w3-padding w3-card">
-                                <input type="text" name="name" />
-                                <span class="label">Name of the attack</span>
-                            </div>
-                            <div id="attack-stack" class="w3-rest w3-padding w3-card">
-                                <select name="stat">
-                                    <option value="str">Strength</option>
-                                    <option value="dex">Dexterity</option>
-                                    <option value="con">Constitution</option>
-                                    <option value="int">Intelligence</option>
-                                    <option value="wis">Wisdom</option>
-                                    <option value="cha">Charisma</option>
-                                </select>
-                                <span class="label">Choose the base Stat</span>
-                            </div>
-                            <div id="attack-type" class="w3-rest w3-padding w3-card">
-                                <select name="type">
-                                    <option value="toHit">Roll to hit</option>
-                                    <option value="save">Save DC</option>
-                                </select>
-                                <span class="label">Choose the type of attack</span>
-                            </div>
-                            <div id="attack-prof" class="w3-rest w3-padding w3-card">
-                                <input type="checkbox" name="proficiency">
-                                <span class="sub-label">Add Proficiency</span>
-                            </div>
-                            <div id="attack-dc" class="w3-rest w3-padding w3-card" style="display: none;">
-                                <input type="text" name="dc" />
-                                <input type="checkbox" name="spell-dc" />
-                                <span class="sub-label">Use Spell DC?</span>
-                                <span class="label">Set DC</span>
-                            </div>
-                            <div id="attack-dice" class="w3-rest w3-padding w3-card">
-                                <input type="text" name="dice" />
-                                <span class="label">Enter Dice</span>
-                            </div>
-                            <div id="attack-bonus" class="w3-rest w3-padding w3-card">
-                                <input type="text" name="bonus" />
-                                <span class="label">Bonus</span>
-                            </div>
-                            <div id="attack-dmg-type" class="w3-rest w3-padding w3-card">
-                                <input type="text" name="dmg-type">
-                                <span class="label">Damage Type</span>
-                            </div>
-                            <button class="button w3-button w3-blue-gray w3-round-large" onclick="att_attack()">Add Attack</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <!-- Charges, Ammo, Resources -->
             <div id="charges-ammo" class="w3-col w3-card w3-round w3-margin-bottom">
                 <button class="expando w3-button w3-bar-block w3-left-align w3-blue-gray">Class Resources, Ammo, &amp; Charges</button>

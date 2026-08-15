@@ -119,18 +119,9 @@ function populateSheetFromJson() {
     $('#languages textarea[name="languages"]').val(loadJson.page1.proficiencies.languages);
 
     //Load Attacks
+    $('#attacks-spells #attacks tbody').empty();
     $.each(loadJson.page1.attacks_spells, function(index, value) {
-        $('#attacks-spells #attacks tbody').append(
-            '<tr draggable="true">' +
-            '<td class="drag-handle" title="Drag to reorder">⠿</td>' +
-            '<td><input type="text" name="name" value="'        + value.name        + '"/></td>' +
-            '<td><input type="text" name="stat" value="'        + value.stat        + '"/></td>' +
-            '<td><input type="text" name="toHit" value="'       + value.toHit       + '"/></td>' +
-            '<td><input type="text" name="damage" value="'      + value.damage      + '"/></td>' +
-            '<td><input type="text" name="damage_type" value="' + value.damage_type + '"/></td>' +
-            '<td><button type="button" class="atk-delete w3-button w3-red w3-small w3-round">✕</button></td>' +
-            '</tr>'
-        );
+        $('#attacks-spells #attacks tbody').append(createAttackRow(value));
     });
 
     //Load Charges

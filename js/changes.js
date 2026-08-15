@@ -162,6 +162,24 @@ function createSpellRow(data) {
     return tr;
 }
 
+// ---------- Dynamic attack rows ----------
+
+function createAttackRow(data) {
+    data = data || {};
+    function esc(v) { return $('<div>').text(v || '').html(); }
+    const tr = $('<tr draggable="true">');
+    tr.html(
+        '<td class="drag-handle" title="Drag to reorder">⠿</td>' +
+        '<td><input type="text" name="name" value="' + esc(data.name) + '"/></td>' +
+        '<td><input type="text" name="stat" value="' + esc(data.stat) + '"/></td>' +
+        '<td><input type="text" name="toHit" value="' + esc(data.toHit) + '"/></td>' +
+        '<td><input type="text" name="damage" value="' + esc(data.damage) + '"/></td>' +
+        '<td><input type="text" name="damage_type" value="' + esc(data.damage_type) + '"/></td>' +
+        '<td><button type="button" class="atk-delete w3-button w3-red w3-small w3-round">✕</button></td>'
+    );
+    return tr;
+}
+
 // ---------- Dynamic equipment rows ----------
 
 function createEquipmentRow(data) {
@@ -328,6 +346,15 @@ $(document).ready(function () {
     });
 
     $('#spell-list').on('click', '.spell-delete', function () {
+        $(this).closest('tr').remove();
+    });
+
+    // --- Attack row buttons ---
+    $('#add-attack-row').click(function () {
+        $('#attacks tbody').append(createAttackRow());
+    });
+
+    $('#attacks tbody').on('click', '.atk-delete', function () {
         $(this).closest('tr').remove();
     });
 

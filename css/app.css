@@ -329,6 +329,7 @@ td {
     width: 90%;
     border-bottom: 1px solid black;
     text-align: center;
+    font-size: 0.82em;
 }
 
 #attacks-spells #add-attack {
@@ -359,6 +360,10 @@ td {
 
 
 /* Page 2 */
+
+#equipment input[type="text"] {
+    font-size: 0.82em;
+}
 
 #currancy,
 #encumberance {
@@ -410,11 +415,18 @@ td {
 }
 
 #spell-info input {
-    font-size: 24px;
+    font-size: 14px;
     margin: auto;
     display: block;
     text-align: center;
     box-shadow: 0 2px 5px 0 rgb(116 155 226 / 48%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+}
+
+/* Auto-calc fields get white backgrounds so they stand out */
+#spell-info input[name="att"],
+#spell-info input[name="dc"],
+#spell-info input[name="bonus"] {
+    background-color: white !important;
 }
 
 #class input {
@@ -458,6 +470,10 @@ td {
     box-sizing: border-box;
     padding: 2px 4px;
     border-bottom: 1px solid black;
+}
+
+#spell-list input[type="text"] {
+    font-size: 0.82em;
 }
 
 .spell-table input[type="checkbox"] {
@@ -692,6 +708,18 @@ button.expando {
 .spell-table th,
 #attacks th {
     background-color: var(--dnd-leather) !important;
+    color: var(--dnd-gold) !important;
+    font-family: var(--dnd-serif);
+    letter-spacing: 0.04em;
+}
+
+/* ── Spell Info labels — match the spell/attack table header look ── */
+#spell-info .label-frame {
+    background-color: var(--dnd-leather) !important;
+    text-align: center;
+    padding: 8px;
+}
+#spell-info .label-frame .label {
     color: var(--dnd-gold) !important;
     font-family: var(--dnd-serif);
     letter-spacing: 0.04em;
@@ -940,6 +968,16 @@ button.expando {
     text-decoration: underline;
 }
 
+/* Clickable attribute labels */
+#attributes .label {
+    cursor: pointer;
+    display: inline-block;
+}
+#attributes .label:hover {
+    color: #1565c0;
+    text-decoration: underline;
+}
+
 /* Roll-result toast */
 #roll-toast {
     position: fixed;
@@ -994,6 +1032,7 @@ button.expando {
     opacity: .7;
     margin-bottom: 4px;
     display: block;
+    color: var(--dnd-text-lt);
 }
 .dice-grid {
     display: flex;
@@ -1014,6 +1053,39 @@ button.expando {
 }
 .quick-dice-btn:hover {
     background: #455a64;
+}
+.dice-count-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 6px;
+}
+.dice-count-label {
+    font-size: .82em;
+    font-weight: bold;
+    color: var(--dnd-text-lt);
+}
+.dice-count-input {
+    width: 40px;
+    padding: 3px 4px;
+    font-size: .82em;
+    text-align: center;
+    border-radius: 4px;
+    border: 1px solid #90a4ae;
+}
+.last-roll-row {
+    margin-top: 8px;
+}
+.last-roll-display {
+    font-size: .82em;
+    font-weight: bold;
+    background: #37474f;
+    color: #fff;
+    border-radius: 5px;
+    padding: 5px 6px;
+    text-align: center;
+    min-height: 1.2em;
+    word-break: break-word;
 }
 
 /* ---- Charge row: notes line + drag ---- */
