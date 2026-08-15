@@ -187,9 +187,10 @@ function createChargeRow(data) {
         const chk = data.checked && data.checked[i] ? ' checked' : '';
         boxes += '<input type="checkbox" class="charge-box"' + chk + ' />';
     }
-    const row = $('<div class="charge-row w3-col">');
+    const row = $('<div class="charge-row w3-col" draggable="true">');
     row.html(
-        '<div class="w3-col l3 w3-padding-small">' +
+        '<div class="w3-col l3 w3-padding-small charge-name-col">' +
+            '<span class="charge-drag-handle" title="Drag to reorder">⠿</span>' +
             '<input type="text" name="charge-name" placeholder="Resource name" value="' + esc(data.name) + '" />' +
         '</div>' +
         '<div class="w3-col l6 w3-padding-small charge-boxes">' + boxes + '</div>' +
@@ -197,6 +198,9 @@ function createChargeRow(data) {
             '<button type="button" class="charge-fill w3-button w3-blue-gray w3-small w3-round">Fill</button> ' +
             '<button type="button" class="charge-empty w3-button w3-blue-gray w3-small w3-round">Empty</button> ' +
             '<button type="button" class="charge-delete w3-button w3-red w3-small w3-round">✕</button>' +
+        '</div>' +
+        '<div class="charge-notes-row">' +
+            '<input type="text" name="charge-notes" placeholder="Notes…" value="' + esc(data.notes) + '" />' +
         '</div>'
     );
     return row;
@@ -504,5 +508,44 @@ $(document).ready(function () {
     $('#equipment-list').on('dragend', 'tr', function () {
         $('#equipment-list tr').removeClass('dragging drag-over-top drag-over-bottom');
         dragSrcEquipRow = null;
+    });
+
+    // ---------- Charge row drag-and-drop ----------
+
+    let dragSrcChargeRow = null;
+
+    $('#charge-list').on('dragstart', '.charge-row', function (e) {
+        dragSrcChargeRow = this;
+        e.originalEvent.dataTransfer.effectAllowed = 'move';
+        setTimeout(() => $(this).addClass('dragging'), 0);
+    });
+
+    $('#charge-list').on('dragover', '.charge-row', function (e) {
+        if (!dragSrcChargeRow || this === dragSrcChargeRow) return;
+        e.preventDefault();
+        e.originalEvent.dataTransfer.dropEffect = 'move';
+        const rect = this.getBoundingClientRect();
+        const isAboveMiddle = e.originalEvent.clientY < rect.top + rect.height / 2;
+        $(this).toggleClass('drag-over-top',    isAboveMiddle);
+        $(this).toggleClass('drag-over-bottom', !isAboveMiddle);
+    });
+
+    $('#charge-list').on('dragleave', '.charge-row', function () {
+        $(this).removeClass('drag-over-top drag-over-bottom');
+    });
+
+    $('#charge-list').on('drop', '.charge-row', function (e) {
+        e.stopPropagation();
+        if (!dragSrcChargeRow || this === dragSrcChargeRow) return false;
+        const rect = this.getBoundingClientRect();
+        const isAboveMiddle = e.originalEvent.clientY < rect.top + rect.height / 2;
+        if (isAboveMiddle) $(this).before($(dragSrcChargeRow));
+        else               $(this).after($(dragSrcChargeRow));
+        return false;
+    });
+
+    $('#charge-list').on('dragend', '.charge-row', function () {
+        $('#charge-list .charge-row').removeClass('dragging drag-over-top drag-over-bottom');
+        dragSrcChargeRow = null;
     });
 });

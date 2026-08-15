@@ -1015,3 +1015,35 @@ button.expando {
 .quick-dice-btn:hover {
     background: #455a64;
 }
+
+/* ---- Charge row: notes line + drag ---- */
+
+.charge-name-col {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.charge-drag-handle {
+    cursor: grab;
+    color: #90a4ae;
+    font-size: 1.1em;
+    user-select: none;
+    flex-shrink: 0;
+}
+.charge-drag-handle:active { cursor: grabbing; }
+
+.charge-notes-row {
+    clear: both;
+    padding: 0 6px 3px;
+}
+.charge-notes-row input {
+    font-size: 0.78em;
+    color: #555;
+    width: 100%;
+    padding: 1px 4px;
+    line-height: 1.3;
+}
+
+#charge-list .charge-row.dragging        { opacity: 0.35; }
+#charge-list .charge-row.drag-over-top   { box-shadow: inset 0  2px 0 0 #546e7a; }
+#charge-list .charge-row.drag-over-bottom { box-shadow: inset 0 -2px 0 0 #546e7a; }

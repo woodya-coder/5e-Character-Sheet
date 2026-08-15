@@ -48,7 +48,8 @@ function getChargeRows() {
             checked.push($(this).prop('checked'));
         });
         rows.push({
-            name: $(this).find('input[name="charge-name"]').val(),
+            name:    $(this).find('input[name="charge-name"]').val(),
+            notes:   $(this).find('input[name="charge-notes"]').val(),
             checked: checked
         });
     });
