@@ -788,6 +788,10 @@ button.expando {
     font-size: 0.82em !important;
 }
 
+#dmg-input {
+    background-color: #f8d7da;
+}
+
 /* Conditions & Boons textareas in the header */
 #col-conditions textarea {
     width: 100%;
