@@ -107,4 +107,10 @@ $(document).ready(function () {
         var label = $(this).text() + ' Check';
         showRollResult(label, 20, rollDie(20), mod);
     });
+
+    // Initiative label → d20 + initiative modifier
+    $('#top-bar').on('click', '.init-roll-label', function () {
+        var mod = parseMod($('input[name="initiative"]').val());
+        showRollResult('Initiative', 20, rollDie(20), mod);
+    });
 });

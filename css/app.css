@@ -982,6 +982,16 @@ button.expando {
     text-decoration: underline;
 }
 
+/* Clickable initiative label */
+#top-bar .init-roll-label {
+    cursor: pointer;
+    display: inline-block;
+}
+#top-bar .init-roll-label:hover {
+    color: #1565c0;
+    text-decoration: underline;
+}
+
 /* Roll-result toast */
 #roll-toast {
     position: fixed;
