@@ -734,6 +734,33 @@ button.expando {
     opacity: 0.6;
 }
 
+/* ── Spell list: type colors & "used" state ── */
+#spell-list .spell-used-cell {
+    text-align: center;
+    vertical-align: middle;
+}
+#spell-list tr.type-race td  { background-color: #d6dfbf; }   /* sage green   */
+#spell-list tr.type-trip td  { background-color: #ecd59a; }   /* burnished gold */
+#spell-list tr.type-spell td { background-color: #cdd8dc; }   /* dusty arcane blue */
+#spell-list tr.type-race  td:first-child { box-shadow: inset 4px 0 0 #5f7a3a; }
+#spell-list tr.type-trip  td:first-child { box-shadow: inset 4px 0 0 var(--dnd-gold); }
+#spell-list tr.type-spell td:first-child { box-shadow: inset 4px 0 0 #3f6280; }
+
+/* Inputs take a lighter wash of the row color instead of stark white */
+#spell-list tr.type-race input[type="text"],
+#spell-list tr.type-trip input[type="text"],
+#spell-list tr.type-spell input[type="text"] {
+    background-color: rgba(255, 255, 255, 0.45);
+}
+
+/* Used spell / pact — grayed out */
+#spell-list tr.spell-used td { background-color: #c9c5bd; }
+#spell-list tr.spell-used td:first-child { box-shadow: inset 4px 0 0 #8a857c; }
+#spell-list tr.spell-used input[type="text"] {
+    background-color: rgba(255, 255, 255, 0.25);
+    color: #6b665e;
+}
+
 /* ── Add-row button ── */
 #add-spell-row {
     border: 1px dashed var(--dnd-gold) !important;

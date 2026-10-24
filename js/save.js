@@ -74,6 +74,7 @@ function getSpells() {
     $('#spell-list tr').each(function() {
         if ($(this).find('th').length == 0) {
             var temp = {
+                used: $(this).find('input[name="spell-used"]').prop('checked'),
                 spell_type: $(this).find('input[name="spell-type"]').val(),
                 spell_name: $(this).find('input[name="spell-name"]').val(),
                 cast_time: $(this).find('input[name="cast-time"]').val(),

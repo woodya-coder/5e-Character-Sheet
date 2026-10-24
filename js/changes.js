@@ -151,6 +151,7 @@ function createSpellRow(data) {
     const tr = $('<tr draggable="true">');
     tr.html(
         '<td class="drag-handle" title="Drag to reorder">⠿</td>' +
+        '<td class="spell-used-cell"><input type="checkbox" name="spell-used" title="Used recently"' + (data.used ? ' checked' : '') + '/></td>' +
         '<td><input type="text" name="spell-type"  value="' + esc(data.spell_type)  + '"/></td>' +
         '<td><input type="text" name="spell-name"  value="' + esc(data.spell_name)  + '"/></td>' +
         '<td><input type="text" name="cast-time"   value="' + esc(data.cast_time)   + '"/></td>' +
@@ -159,7 +160,21 @@ function createSpellRow(data) {
         '<td><input type="text" name="description" value="' + esc(data.description) + '"/></td>' +
         '<td><button type="button" class="spell-delete w3-button w3-red w3-small w3-round">✕</button></td>'
     );
+    updateSpellRowStyle(tr);
     return tr;
+}
+
+// Color a spell row by its Type, and gray out used spells/pacts
+function updateSpellRowStyle(tr) {
+    const type = (tr.find('input[name="spell-type"]').val() || '').trim().toLowerCase();
+    const used = tr.find('input[name="spell-used"]').prop('checked');
+    tr.removeClass('type-race type-trip type-spell spell-used');
+    if (type === 'race') tr.addClass('type-race');
+    else if (type === 'trip') tr.addClass('type-trip');
+    else if (type === 'spell' || type === 'pact') {
+        tr.addClass('type-spell');
+        if (used) tr.addClass('spell-used');
+    }
 }
 
 // ---------- Dynamic attack rows ----------
@@ -347,6 +362,10 @@ $(document).ready(function () {
 
     $('#spell-list').on('click', '.spell-delete', function () {
         $(this).closest('tr').remove();
+    });
+
+    $('#spell-list').on('input change', 'input[name="spell-type"], input[name="spell-used"]', function () {
+        updateSpellRowStyle($(this).closest('tr'));
     });
 
     // --- Attack row buttons ---
